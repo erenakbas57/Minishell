@@ -1,39 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/23 16:44:59 by makbas            #+#    #+#             */
-/*   Updated: 2023/08/16 18:19:05 by makbas           ###   ########.fr       */
+/*   Created: 2022/10/11 16:10:33 by makbas            #+#    #+#             */
+/*   Updated: 2023/08/20 15:55:10 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char*	ft_strlcpy(char *dst, const char *src, int dstsize)
 {
-	size_t	i;
-	size_t	bt;
-	char	*str;
+	int		i;
+	int		x;
 
-	if (s == NULL)
-		return (0);
-	if ((size_t)start > ft_strlen(s))
-		return (ft_strdup(""));
+	x = ft_strlen(src);
 	i = 0;
-	bt = 0;
-	while ((bt < len) && (s[bt + start] != '\0'))
-		bt++;
-	str = (char *)malloc((sizeof(char) * bt) + 1);
-	if (str == NULL)
-		return (0);
-	while (i < bt)
+
+	while (src [i] != '\0' && i < (dstsize - 1))
 	{
-		str[i] = s[start + i];
+		dst[i] = src[i];
 		i++;
 	}
-	str[i] = '\0';
-	return (str);
+	dst[i] = '\0';
+	return (dst);
 }

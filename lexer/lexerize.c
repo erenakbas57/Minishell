@@ -6,33 +6,11 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 00:00:18 by makbas            #+#    #+#             */
-/*   Updated: 2023/08/02 14:47:22 by makbas           ###   ########.fr       */
+/*   Updated: 2023/08/16 15:48:54 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	token_err(int type)
-{
-	char	*red;
-
-	if (type == HERE_DOC)
-		red = "<<";
-	else if (type == RED_INPUT)
-		red = "<";
-	else if (type == RED_OUTPUT)
-		red = ">";
-	else if (type == RED_APPEND)
-		red = ">>";
-	else if (type == PIPE)
-		red = "|";
-	else
-		red = "newline";
-	errno = 258;
-	write(2, "minishell: syntax error near unexpected token '", 47);
-	write(2, red, ft_strlen(red));
-	write(2, "'\n", 2);
-}
 
 char    **add_array(char **exe_red, char *token)
 {
@@ -62,7 +40,6 @@ int     append_process(t_token **token, t_process *process)
     {
         data = clear_quote((*token)->str);
         process->execute = add_array(process->execute, data);
-        printf("%s\n", m_shell.process->execute[0]);
     }
     else
     {
@@ -100,31 +77,6 @@ void	free_token(void)
 	}
 }
 
-
-void print_execute(t_process *process) {
-    if (process == NULL || process->execute == NULL) {
-        printf("No 'execute' data available.\n");
-        return;
-    }
-
-    printf("Execute:\n");
-    for (int i = 0; process->execute[i] != NULL; i++) {
-        printf("%s\n", process->execute[i]);
-    }
-}
-
-void print_redirects(t_process *process) {
-    if (process == NULL || process->redirects == NULL) {
-        printf("No 'redirects' data available.\n");
-        return;
-    }
-
-    printf("Redirects:\n");
-    for (int i = 0; process->redirects[i] != NULL; i++) {
-        printf("%s\n", process->redirects[i]);
-    }
-}
-
 int    lexerize()
 {
     t_token     *token;
@@ -148,7 +100,5 @@ int    lexerize()
             token = token->next;
     }
     free_token();
-    print_execute(m_shell.process);
-    print_redirects(m_shell.process);
     return (TRUE);
 }

@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:05:28 by makbas            #+#    #+#             */
-/*   Updated: 2023/08/15 17:40:21 by makbas           ###   ########.fr       */
+/*   Updated: 2023/08/20 18:05:33 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ char    *clear_quote(char *token)
     i = 0;
     array = NULL;
     token = dollar_control(token);
+    printf("TOKEN : %s\n", token);
     while (token[i])
     {
         if (token[i] == DOUBLE_QUOTE)

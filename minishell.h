@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 18:00:30 by makbas            #+#    #+#             */
-/*   Updated: 2023/08/15 18:31:40 by makbas           ###   ########.fr       */
+/*   Updated: 2023/08/21 14:42:21 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,11 +104,13 @@ char		*ft_substr(char const *s, unsigned int start, size_t len);
 char		*ft_strjoin(char const *s1, char const *s2);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 char		**ft_split(char const *s, char c);
-char	*ft_strchr(const char *s, int c);
+char		*ft_strchr(const char *s, int c);
+char*		ft_strlcpy(char *dst, const char *src, int dstsize);
 
 // CONTROL
 int 		is_redirects(char *str);
 int			is_whitespace(char c);
+int			is_char(char c);
 
 // TOKEN_LST
 int			token_add_back(t_token **token, t_token *new, int plus);
@@ -139,7 +141,7 @@ void    	add_text(char **array, char *new);
 
 // DOLLAR
 char*   	dollar_control(char* token);
-int     	using_control(char* str);
-int     	quote_control(char *quote);
-
+int     	quote_control(char* quote);
+char*     	env_add(char* env);
+int     	env_control(char* token, char** str, int* i);
 #endif

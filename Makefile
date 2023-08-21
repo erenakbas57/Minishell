@@ -14,10 +14,10 @@ SRCS 	= main.c control.c
 LIBFT 	= libft/ft_bzero.c libft/ft_memset.c libft/ft_calloc.c \
 		  libft/ft_substr.c libft/ft_strdup.c libft/ft_strlen.c \
 		  libft/ft_strjoin.c libft/ft_strncmp.c libft/ft_split.c \
-		  libft/ft_strchr.c 
+		  libft/ft_strchr.c  libft/ft_strlcpy.c
 
 TOKEN	= token/tokenize.c token/token_lst.c
-LEXER	= lexer/lexerize.c lexer/lexer_lst.c lexer/quote.c lexer/dollar.c
+LEXER	= lexer/lexerize.c lexer/lexer_lst.c lexer/quote.c lexer/dollar1.c
 
 ENV		= env/environment.c
 

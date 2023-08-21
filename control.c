@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 18:13:55 by makbas            #+#    #+#             */
-/*   Updated: 2023/07/30 17:18:54 by makbas           ###   ########.fr       */
+/*   Updated: 2023/08/16 17:17:07 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,13 @@ int is_redirects(char *str)
 		return (RED_OUTPUT);
 	if (str[0] == '|')
 		return (PIPE);
+	return (0);
+}
+
+int	is_char(char c)
+{
+	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
+		return (1);
 	return (0);
 }
 
