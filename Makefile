@@ -62,7 +62,7 @@ fclean	:	clean
 re		:	fclean all
 
 run		: all
-		clear
-		./$(NAME)
+		  clear
+		  ./$(NAME)
 
 .PHONY: all re clean fclean

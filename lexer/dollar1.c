@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 15:14:22 by makbas            #+#    #+#             */
-/*   Updated: 2023/08/21 15:13:32 by makbas           ###   ########.fr       */
+/*   Updated: 2023/08/23 09:30:42 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,19 @@ char*     env_add(char* env)
     char* path;
     
     i = 0;
+    env = ft_strjoin(env, "=");
     while (m_shell.env[i])
     {
         if (ft_strncmp(m_shell.env[i], env, ft_strlen(env)) == 0)
         {
             path = m_shell.env[i];
-            env = ft_substr(path, ft_strlen(env) + 1, ft_strlen(path) - ft_strlen(env));
+            env = ft_substr(path, ft_strlen(env), ft_strlen(path) - ft_strlen(env));
             return (env);
         }
         i++;
     }
-    env = ft_strjoin("$", env);
-    return (env);
+    
+    return ("$");
 }
 
 int     env_control(char* token, char** str, int* i)
@@ -46,10 +47,11 @@ int     env_control(char* token, char** str, int* i)
         (*i)++;
         len++;
     }
-    env = ft_substr(token, start, len); // $ kısmını aldık
-    len = ft_strlen(env) + 1;   // $ kısmı uzunluğunu aldık
-    env = env_add(env); // $ kısmı doğruysa ya da yanlışsa buraya attı
-    *str = ft_strjoin(*str, env);
+    env = ft_substr(token, start, len);
+    len = ft_strlen(env) + 1;
+    env = env_add(env);
+    if (env[0] != DOLLAR)
+        *str = ft_strjoin(*str, env);
     return (len);
 }
 
@@ -62,7 +64,7 @@ int     quote_control(char* quote)
 
     start = 0;
     finish = 0;
-    i = 0;
+    i = -1;
     count = 0;
     while (quote[i++] != DOLLAR)
     {
@@ -75,7 +77,7 @@ int     quote_control(char* quote)
             finish++;
     }
     count = start + finish;
-    if ((count == 2 && start == 1) || ((start != finish) && (start % 2 == 1)))
+    if (((count % 2 == 0) && (start % 2 == 1)) || ((finish == 1) && (start == 1)))
         return (0);
     if (count == 0)
         return (1);

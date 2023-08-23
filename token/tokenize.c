@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 18:08:12 by makbas            #+#    #+#             */
-/*   Updated: 2023/08/01 14:56:07 by makbas           ###   ########.fr       */
+/*   Updated: 2023/08/23 09:14:39 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ void    end_token(char **str, char type)
 	while (**str)
 	{
 		if (**str == type)
-		{
-			(*str)++;
+        {
+            (*str)++;
 			if (is_whitespace(**str) || is_redirects(*str))
 				break ;
 			else
 				while (**str && !is_whitespace(**str) && !is_redirects(*str))
 					(*str)++;
 			return ;
-		}
+        }
 		(*str)++;
 	}
 }
@@ -74,7 +74,7 @@ void     parse_string(char **str)
 
 void print_tokens(t_token *token) {
     while (token) {
-        printf("Token: \"%s\"    Type: %d\n", token->str, token->type);
+        printf("-%s-\n", token->str);
         token = token->next;
     }
 }
