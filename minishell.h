@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 18:00:30 by makbas            #+#    #+#             */
-/*   Updated: 2023/08/23 09:08:24 by makbas           ###   ########.fr       */
+/*   Updated: 2023/08/29 16:09:33 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,42 @@
 # include <signal.h>
 # include <sys/ioctl.h>
 
-# define RESET	    "\033[0m"
-# define BLACK		"\033[30m"
-# define RED		"\033[31m"
-# define GREEN		"\033[32m"
-# define YELLOW		"\033[33m"
-# define BLUE		"\033[34m"
-# define PURPLE		"\033[35m"
-# define CYAN		"\033[36m"
-# define WHITE		"\033[37m"
+# define RESET			"\033[0m"
+# define BLACK			"\033[30m"
+# define RED 			"\033[31m"
+# define LIGHT_RED 		"\033[91m"
+# define GREEN 			"\033[32m"
+# define LIGHT_GREEN 	"\033[92m"
+# define YELLOW 		"\033[33m"
+# define LIGHT_YELLOW 	"\033[93m"
+# define BLUE 			"\033[34m"
+# define LIGHT_BLUE 	"\033[94m"
+# define MAGENTA 		"\033[35m"
+# define LIGHT_MAGENTA 	"\033[95m"
+# define CYAN 			"\033[36m"
+# define LIGHT_CYAN 	"\033[96m"
+# define WHITE 			"\033[37m"
+# define GREY 			"\033[90m"
+# define LIGHT_GREY 	"\033[37m"
 
+# define BLACK_BOLD 	"\033[1;30m"
+# define RED_BOLD 		"\033[1;31m"
+# define GREEN_BOLD 	"\033[1;32m"
+# define YELLOW_BOLD 	"\033[1;33m"
+# define BLUE_BOLD 		"\033[1;34m"
+# define MAGENTA_BOLD 	"\033[1;35m"
+# define CYAN_BOLD 		"\033[1;36m"
+# define WHITE_BOLD 	"\033[1;37m"
 
+# define WELCOME "\033[34m\
+	╔═══════════════════════════════════════════════════════════════════════╗    \n \
+	║"RED"   ███    ███ ██ ███    ██ ██ ███████ ██   ██ ███████ ██      ██       \033[34m║\n \
+	║"RED"   ████  ████ ██ ████   ██ ██ ██      ██   ██ ██      ██      ██       \033[34m║\n \
+	║"RED"   ██ ████ ██ ██ ██ ██  ██ ██ ███████ ███████ █████   ██      ██       \033[34m║\n \
+	║"RED"   ██  ██  ██ ██ ██  ██ ██ ██      ██ ██   ██ ██      ██      ██       \033[34m║\n \
+	║"RED"   ██      ██ ██ ██   ████ ██ ███████ ██   ██ ███████ ███████ ███████  \033[34m║\n \
+	╚═══════════════════════════════════════════════════════════════════════╝"
+	
 #define TRUE           1
 #define FALSE          0
 #define DOLLAR         '$'
@@ -51,11 +76,11 @@
 enum token_type
 {
 	PIPE        = 1, // |
-	STRING, // char *
-	HERE_DOC, // <<
-	RED_INPUT, // <
-	RED_APPEND, // >>
-	RED_OUTPUT
+	STRING, 		 // char *
+	HERE_DOC, 		 // <<
+	RED_INPUT, 		 // <
+	RED_APPEND, 	 // >>
+	RED_OUTPUT		 // >
 };
 
 typedef struct s_process{
@@ -78,6 +103,7 @@ typedef struct s_token
 
 
 typedef struct s_minishell{
+	int			process_count;
 	char		**paths;
 	char		**env;
 	t_process	*process;
@@ -93,6 +119,7 @@ void		init_env(char **env);
 // ENVIRONMENT
 void		append_env(char **env);
 void    	append_paths();
+void		init_env(char **env);
 
 // LIBFT
 void		*ft_memset(void *b, int c, size_t len);
@@ -106,11 +133,17 @@ int			ft_strncmp(const char *s1, const char *s2, size_t n);
 char		**ft_split(char const *s, char c);
 char		*ft_strchr(const char *s, int c);
 char*		ft_strlcpy(char *dst, const char *src, int dstsize);
+int			ft_strcmp(const char *s1, const char *s2);
+
+// FREE
+void		free_process(void);
+void		free_array(char **arr);
 
 // CONTROL
 int 		is_redirects(char *str);
 int			is_whitespace(char c);
 int			is_char(char c);
+int			is_number(char *nbr);
 
 // TOKEN_LST
 int			token_add_back(t_token **token, t_token *new, int plus);
@@ -122,6 +155,7 @@ void    	tokenize(char *input);
 void    	parse_string(char **str);
 int     	end_token_two(char *str);
 void    	end_token(char **str, char type);
+
 
 // LEXER_LST
 t_process	*process_init();
@@ -144,4 +178,15 @@ char*   	dollar_control(char* token);
 int     	quote_control(char* quote);
 char*     	env_add(char* env);
 int     	env_control(char* token, char** str, int* i);
+
+
+
+// BUILTIN
+int     	is_builtin(char *input);
+void		run_builtin(t_process *process);
+int     	b_pwd();
+int     	b_cd();
+int			b_exit();
+int 		b_env();
+
 #endif

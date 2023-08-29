@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 00:00:18 by makbas            #+#    #+#             */
-/*   Updated: 2023/08/16 15:48:54 by makbas           ###   ########.fr       */
+/*   Updated: 2023/08/28 17:53:16 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int    lexerize()
                 token = token->next;
             process = process_init();
             process_add_back(&m_shell.process, process);
+            m_shell.process_count++;
         }
         if (!token)
             break;

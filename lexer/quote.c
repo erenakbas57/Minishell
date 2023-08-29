@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:05:28 by makbas            #+#    #+#             */
-/*   Updated: 2023/08/23 09:18:51 by makbas           ###   ########.fr       */
+/*   Updated: 2023/08/23 15:12:43 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,6 @@ char    *clear_quote(char *token)
             new = take_text(token, &i);
         add_text(&array, new);
     }
-    //free(token);
+    free(token);
     return (array);
 }

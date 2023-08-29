@@ -1,45 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   environment.c                                      :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/31 15:33:23 by makbas            #+#    #+#             */
-/*   Updated: 2023/08/26 17:27:58 by makbas           ###   ########.fr       */
+/*   Created: 2023/08/29 16:06:24 by makbas            #+#    #+#             */
+/*   Updated: 2023/08/29 16:44:41 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-
-void	init_env(char **env)
+int b_env()
 {
-	append_env(env);
-	append_paths();
-}
-
-void    append_env(char **env)
-{
+    char    **env;
     int     i;
-    int     len;
-
-    len = 0;
-    while (env[len])
-        len++;
-    m_shell.env = ft_calloc(sizeof(char *), len + 1);
+    
     i = 0;
-    while (i < len)
+    env = m_shell.env;
+    if (m_shell.process->execute[1] != NULL)
     {
-        m_shell.env[i] = env[i];
-        i++;
+        printf(MAGENTA"ENV: "RED);
+        printf("%s: "RESET, m_shell.process->execute[1]);
+        printf("No such file or directory\n");
     }
-}
-
-void    append_paths()
-{
-    char    *path;
-
-    path = m_shell.env[2] + 5;
-    m_shell.paths = ft_split(path, ':');
+    else
+    {
+        while (env[i])
+        {
+            printf("%s\n", env[i]);
+            i++;
+        }
+    }
+    return (0);
 }

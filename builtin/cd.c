@@ -1,45 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   environment.c                                      :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/31 15:33:23 by makbas            #+#    #+#             */
-/*   Updated: 2023/08/26 17:27:58 by makbas           ###   ########.fr       */
+/*   Created: 2023/08/26 23:18:13 by makbas            #+#    #+#             */
+/*   Updated: 2023/08/29 15:35:37 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-
-void	init_env(char **env)
+int     b_cd()
 {
-	append_env(env);
-	append_paths();
-}
+    char  *arg;
 
-void    append_env(char **env)
-{
-    int     i;
-    int     len;
-
-    len = 0;
-    while (env[len])
-        len++;
-    m_shell.env = ft_calloc(sizeof(char *), len + 1);
-    i = 0;
-    while (i < len)
-    {
-        m_shell.env[i] = env[i];
-        i++;
+    arg = m_shell.process->execute[1];
+    if (arg == NULL) {
+        chdir(getenv("HOME"));
+        return 0;
     }
-}
-
-void    append_paths()
-{
-    char    *path;
-
-    path = m_shell.env[2] + 5;
-    m_shell.paths = ft_split(path, ':');
+    if (chdir(arg) != 0) {
+        perror("cd");
+        return 1;
+    }
+    return 0;
 }
