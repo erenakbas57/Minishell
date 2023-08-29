@@ -34,7 +34,7 @@ LIBFT 	= libft/ft_bzero.c libft/ft_memset.c libft/ft_calloc.c \
 		  libft/ft_strchr.c  libft/ft_strlcpy.c libft/ft_strcmp.c
 
 TOKEN	= token/tokenize.c token/token_lst.c
-LEXER	= lexer/lexerize.c lexer/lexer_lst.c lexer/quote.c lexer/dollar1.c
+LEXER	= lexer/lexerize.c lexer/lexer_lst.c lexer/quote.c lexer/dollar.c
 BUILTIN = builtin/pwd.c builtin/builtin.c builtin/cd.c builtin/exit.c builtin/env.c
 ENV		= env/environment.c
 CMD		= cmd/cmd.c
