@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 23:00:25 by makbas            #+#    #+#             */
-/*   Updated: 2023/08/29 16:09:19 by makbas           ###   ########.fr       */
+/*   Updated: 2023/08/31 18:15:32 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,10 @@ int     is_builtin(char *input)
 void    run_builtin(t_process *process)
 {
     char    *exe;
-
+    char    **input;
+    
     exe = process->execute[0];
+    input = process->execute;
     if (ft_strcmp(exe, "CD"))
         b_cd();
     if (ft_strcmp(exe, "PWD"))
@@ -53,4 +55,6 @@ void    run_builtin(t_process *process)
         b_exit();
     if (ft_strcmp(exe, "ENV"))
         b_env();
+    if (ft_strcmp(exe, "ECHO"))
+        b_echo(input);
 }

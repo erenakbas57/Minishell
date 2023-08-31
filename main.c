@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 18:00:32 by makbas            #+#    #+#             */
-/*   Updated: 2023/08/29 18:15:12 by makbas           ###   ########.fr       */
+/*   Updated: 2023/08/31 15:57:25 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,8 @@ void	start_cmd()
 	}
 }
 
-void	asd()
-{
-	printf("asd\n");
-}
+
+
 int main(int ac, char **av, char **env)
 {
     char *input;
@@ -37,8 +35,6 @@ int main(int ac, char **av, char **env)
 	printf("\n%s\n", WELCOME);
     while (ac && av)
     {
-		signal(SIGINT, asd);
-		signal(SIGQUIT, SIG_IGN);
 		input = readline(YELLOW"MINISHELL>> : "RESET);
 		if (*input)
 		{

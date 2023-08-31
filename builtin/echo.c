@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/26 23:18:13 by makbas            #+#    #+#             */
-/*   Updated: 2023/08/31 18:01:50 by makbas           ###   ########.fr       */
+/*   Created: 2023/08/31 18:12:44 by makbas            #+#    #+#             */
+/*   Updated: 2023/08/31 18:49:38 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int     b_cd()
+int     b_echo(char **input)
 {
-    char  *arg;
+    int i;
+    int flag;
 
-    arg = m_shell.process->execute[1];
-    if (arg == NULL) {
-        chdir(getenv("HOME"));
-        return 0;
-    }
-    if (chdir(arg) != 0) {
-        printf(MAGENTA"Minishell: "RED);
-        printf("CD: "RESET);
-        printf("No such file or directory\n");
-        return 1;
-    }
-    return 0;
+    i = 0;
+    flag = ft_strcmp(input[1], "-n");
+    return (0);
 }
