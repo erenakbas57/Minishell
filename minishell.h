@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 18:00:30 by makbas            #+#    #+#             */
-/*   Updated: 2023/08/31 18:48:12 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/01 18:18:34 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ typedef struct s_minishell{
 	int			process_count;
 	char		**paths;
 	char		**env;
+	char		**export;
 	t_process	*process;
     t_token     *token;
 	
@@ -120,6 +121,10 @@ void		init_env(char **env);
 void		append_env(char **env);
 void    	append_paths();
 void		init_env(char **env);
+
+void     	add_export();
+char    	**env_quote(char **env);
+char*     	env_value(char* env);
 
 // LIBFT
 void		*ft_memset(void *b, int c, size_t len);

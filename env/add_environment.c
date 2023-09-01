@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:33:23 by makbas            #+#    #+#             */
-/*   Updated: 2023/08/26 17:27:58 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/01 18:16:19 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 void	init_env(char **env)
 {
 	append_env(env);
+    add_export();
 	append_paths();
 }
 
