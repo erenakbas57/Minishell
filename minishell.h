@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 18:00:30 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/01 18:18:34 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/02 17:55:30 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,18 @@
 	║"RED"   ██      ██ ██ ██   ████ ██ ███████ ██   ██ ███████ ███████ ███████  \033[34m║\n \
 	╚═══════════════════════════════════════════════════════════════════════╝"
 	
-#define TRUE           1
-#define FALSE          0
-#define DOLLAR         '$'
-#define DOUBLE_QUOTE   '"'
-#define SINGLE_QUOTE   '\''
-#define CHILD_PROCESS  0
-#define MAIN_PROCESS   1
-#define REPLACE        1
-#define APPEND         0
+#define TRUE			1
+#define FALSE			0
+#define DOLLAR			'$'
+#define DOUBLE_QUOTE	'"'
+#define SINGLE_QUOTE	'\''
+#define CHILD_PROCESS	0
+#define MAIN_PROCESS	1
+
+#define ERROR			0
+#define VARIABLE		1
+#define EQUAL			2
+#define VALUE			3
 
 enum token_type
 {
@@ -84,13 +87,13 @@ enum token_type
 };
 
 typedef struct s_process{
-	pid_t				pid;
-	int					fd[2];			// input ve output dosyası (SOR)
-	int					heredoc_fd[2];	// (SOR)
-	char				**execute;		// execute kısmı
-	char				**redirects;	// > & >> işaretlerini ve sonraki dosyayı tutuyor tutuyor
-	struct s_process	*prev;			// önceki process
-	struct s_process	*next;			// sonraki **
+	pid_t	pid;
+	int		fd[2];
+	int					heredoc_fd[2];
+	char				**execute;
+	char				**redirects;
+	struct s_process *prev;
+	struct s_process *next;
 }				t_process;
 
 typedef struct s_token
@@ -118,15 +121,17 @@ void		init_env(char **env);
 
 
 // ENVIRONMENT
-void		append_env(char **env);
+void		append_env(char **env, int size);
 void    	append_paths();
 void		init_env(char **env);
+int     	count_value(char **str);
 
-void     	add_export();
+void    	add_export(int size);
 char    	**env_quote(char **env);
 char*     	env_value(char* env);
 
 // LIBFT
+int			ft_atoi(const char *str);
 void		*ft_memset(void *b, int c, size_t len);
 void		*ft_calloc(size_t count, size_t size);
 void		ft_bzero(void *s, size_t n);
@@ -139,6 +144,7 @@ char		**ft_split(char const *s, char c);
 char		*ft_strchr(const char *s, int c);
 char*		ft_strlcpy(char *dst, const char *src, int dstsize);
 int			ft_strcmp(const char *s1, const char *s2);
+char		*ft_strdup_two(const char *str);
 
 // FREE
 void		free_process(void);
@@ -189,11 +195,21 @@ int     	env_control(char* token, char** str, int* i);
 // BUILTIN
 int     	is_builtin(char *input);
 void		run_builtin(t_process *process);
+
 int     	b_pwd();
+
 int     	b_cd();
+
 int			b_exit();
+
 void    	env_write(char* str);
 int 		b_env();
+
 int     	b_echo(char **input);
+
+int			b_export(char **exe);
+void    	show_export();
+void    	new_value_export(char *new, int choose);
+int     	export_control(char *str);
 
 #endif

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   environment.c                                      :+:      :+:    :+:   */
+/*   add_environment.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:33:23 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/01 18:16:19 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/02 17:56:26 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,22 @@
 
 void	init_env(char **env)
 {
-	append_env(env);
-    add_export();
+	append_env(env, 0);
+    add_export(0);
 	append_paths();
 }
 
-void    append_env(char **env)
+int     count_value(char **str)
+{
+    int i;
+
+    i = 0;
+    while (str[i])
+        i++;
+    return (i);
+}
+
+void    append_env(char **env, int size)
 {
     int     i;
     int     len;
@@ -28,7 +38,10 @@ void    append_env(char **env)
     len = 0;
     while (env[len])
         len++;
-    m_shell.env = ft_calloc(sizeof(char *), len + 1);
+    printf("%d\n", len);
+    if (size == 0)
+        size = len + 1;
+    m_shell.env = ft_calloc(sizeof(char *), size);
     i = 0;
     while (i < len)
     {

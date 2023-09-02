@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
+/*   add_export.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:05:41 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/01 18:19:18 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/02 17:50:40 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char    **env_quote(char **env)
 
     cpy_env = env;
     i = 0;
-    new = malloc(sizeof(char *) * (exe_count(env) + 1));
+    new = ft_calloc(sizeof(char *), (count_value(env) + 1));
     while (env[i])
     {
         first = NULL;
@@ -60,28 +60,32 @@ char    **env_quote(char **env)
         first = ft_strjoin(first, "\"");
         first[ft_strlen(env[i]) + 3] = '\0';
         new[i] = first;
+        free(first);
         i++;
     }
-    env[i] = NULL;
+    free(cpy_env);
     return (new);
 }
 
-void    add_export(){
+void    add_export(int size)
+{
     char    **env;
-    char    **exe;
-    int     exe_c;
     int     len;
     int     i;
-    
+
     len = 0;
-    while (env[len])
+    while (m_shell.env[len])
         len++;
-    m_shell.export = ft_calloc(sizeof(char *), len + 1);
+    if (size == 0)
+        size = len + 1;
+    m_shell.export = ft_calloc(sizeof(char *), size);
     env = env_quote(m_shell.env);
     i = 0;
     while (i < len)
     {
         m_shell.export[i] = env[i];
         i++;
+        //free(env[i]);
     }
+    //free(env);
 }

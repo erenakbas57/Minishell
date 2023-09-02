@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 23:00:25 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/01 17:09:42 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/02 14:29:47 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,5 @@ void    run_builtin(t_process *process)
     if (ft_strcmp(exe, "ECHO"))
         b_echo(input);
     if (ft_strcmp(exe, "EXPORT"))
-        b_export();
+        b_export(input);
 }

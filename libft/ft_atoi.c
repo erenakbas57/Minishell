@@ -1,51 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/23 16:44:59 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/02 17:25:33 by makbas           ###   ########.fr       */
+/*   Created: 2022/10/11 16:09:19 by makbas            #+#    #+#             */
+/*   Updated: 2023/09/02 15:24:30 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*ft_strdup(const char *str)
+int	ft_atoi(const char *str)
 {
-	char	*d;
 	int		i;
+	long	num;
+	int		sign;
 
 	i = 0;
-	d = malloc(sizeof(char) * (ft_strlen(str) + 1));
-	if (d == NULL)
-		return (0);
-	while (str[i])
+	num = 0;
+	sign = 1;
+	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	if (str[i] == '-' || str[i] == '+')
 	{
-		d[i] = str[i];
+		if (str[i] == '-')
+			sign *= -1;
 		i++;
 	}
-	d[i] = '\0';
-	return (d);
-}
-
-char	*ft_strdup_two(const char *str)
-{
-	char	*d;
-	int		i;
-
-	i = 0;
-	d = malloc(sizeof(char) * (ft_strlen(str) + 3));
-	if (d == NULL)
-		return (0);
-	while (str[i])
+	while (str[i] && (str[i] >= '0' && str[i] <= '9'))
 	{
-		d[i] = str[i];
+		num = (num * 10) + (str[i] - 48) * sign;
+		if (num > 2147483647)
+			return (-1);
+		if (num < -2147483648)
+			return (0);
 		i++;
 	}
-	d[i++] = '\"';
-	d[i++] = '\"';
-	d[i] = '\0';
-	return (d);
+	return (num);
 }
