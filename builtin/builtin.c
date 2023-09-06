@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 23:00:25 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/06 15:52:13 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/06 18:48:00 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ int     is_builtin(char *input)
     int     i;
     
     cmd = malloc(sizeof(char *) * 8);
-    cmd[0] = "CD";
-    cmd[1] = "EXIT";
-    cmd[2] = "UNSET";
-    cmd[3] = "EXPORT";
-    cmd[4] = "ENV";
-    cmd[5] = "PWD";
-    cmd[6] = "ECHO";
+    cmd[0] = "cd";
+    cmd[1] = "exit";
+    cmd[2] = "unset";
+    cmd[3] = "export";
+    cmd[4] = "env";
+    cmd[5] = "pwd";
+    cmd[6] = "echo";
     cmd[7] = NULL;
     i = 0;
     while (i < 7)

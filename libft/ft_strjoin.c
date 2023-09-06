@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 15:09:31 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/03 19:20:59 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/06 19:06:05 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,27 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (join);
 }
 
+// void	add_declare(char **join)
+// {
+// 	int		i;
+// 	char	*dec;
+
+	
+// 	i = 0;
+// }
+
 char	*ft_strjoin_two(char const *s1)
 {
 	int		i;
 	int		j;
 	char	*join;
-
-	join = (char *)malloc(ft_strlen(s1) + 3);
-	i = 0;
+	
+	join = ft_calloc((ft_strlen(s1) + 14), 1);
+	i = 11;
 	j = 0;
 	if (!join)
 		return (0);
+	
 	while (s1[i] != '\0')
 	{
 		if (s1[i] == '=')
@@ -63,7 +73,5 @@ char	*ft_strjoin_two(char const *s1)
 		j++;
 	}
 	join[j] = '\"';
-	j++;
-	join[j] = '\0';
 	return (join);
 }

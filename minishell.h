@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 18:00:30 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/03 18:58:12 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/06 18:48:07 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,6 @@ void		init_env(char **env);
 int     	count_value(char **str);
 
 void    	add_export();
-// void    	env_quote(char **env);
-// char*     	env_value(char* env);
 
 // LIBFT
 int			ft_atoi(const char *str);
