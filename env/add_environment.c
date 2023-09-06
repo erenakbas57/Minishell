@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:33:23 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/02 17:56:26 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/06 15:33:38 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 void	init_env(char **env)
 {
-	append_env(env, 0);
-    add_export(0);
+	append_env(env);
+    add_export();
 	append_paths();
 }
 
@@ -30,7 +30,7 @@ int     count_value(char **str)
     return (i);
 }
 
-void    append_env(char **env, int size)
+void    append_env(char **env)
 {
     int     i;
     int     len;
@@ -38,10 +38,7 @@ void    append_env(char **env, int size)
     len = 0;
     while (env[len])
         len++;
-    printf("%d\n", len);
-    if (size == 0)
-        size = len + 1;
-    m_shell.env = ft_calloc(sizeof(char *), size);
+    m_shell.env = ft_calloc(sizeof(char *), len + 1);
     i = 0;
     while (i < len)
     {

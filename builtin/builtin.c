@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 23:00:25 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/02 14:29:47 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/06 15:52:13 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,16 @@ void    run_builtin(t_process *process)
     
     exe = process->execute[0];
     input = process->execute;
-    if (ft_strcmp(exe, "CD"))
+    if (ft_strcmp(exe, "cd"))
         b_cd();
-    if (ft_strcmp(exe, "PWD"))
+    if (ft_strcmp(exe, "pwd"))
         b_pwd();
-    if (ft_strcmp(exe, "EXIT"))
+    if (ft_strcmp(exe, "exit"))
         b_exit();
-    if (ft_strcmp(exe, "ENV"))
+    if (ft_strcmp(exe, "env"))
         b_env();
-    if (ft_strcmp(exe, "ECHO"))
+    if (ft_strcmp(exe, "echo"))
         b_echo(input);
-    if (ft_strcmp(exe, "EXPORT"))
+    if (ft_strcmp(exe, "export"))
         b_export(input);
 }

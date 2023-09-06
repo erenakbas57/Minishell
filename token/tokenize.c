@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 18:08:12 by makbas            #+#    #+#             */
-/*   Updated: 2023/08/28 17:51:35 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/04 15:17:54 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,6 @@ void    tokenize(char *input)
 		else
             parse_string(&input);
     }
+    
 }
 

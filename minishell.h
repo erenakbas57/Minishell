@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 18:00:30 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/02 17:55:30 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/03 18:58:12 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,14 +121,14 @@ void		init_env(char **env);
 
 
 // ENVIRONMENT
-void		append_env(char **env, int size);
+void		append_env(char **env);
 void    	append_paths();
 void		init_env(char **env);
 int     	count_value(char **str);
 
-void    	add_export(int size);
-char    	**env_quote(char **env);
-char*     	env_value(char* env);
+void    	add_export();
+// void    	env_quote(char **env);
+// char*     	env_value(char* env);
 
 // LIBFT
 int			ft_atoi(const char *str);
@@ -145,6 +145,7 @@ char		*ft_strchr(const char *s, int c);
 char*		ft_strlcpy(char *dst, const char *src, int dstsize);
 int			ft_strcmp(const char *s1, const char *s2);
 char		*ft_strdup_two(const char *str);
+char		*ft_strjoin_two(char const *s1);
 
 // FREE
 void		free_process(void);
