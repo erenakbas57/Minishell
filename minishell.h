@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 18:00:30 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/07 15:50:47 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/07 17:46:18 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@
 	║"RED"   ██      ██ ██ ██   ████ ██ ███████ ██   ██ ███████ ███████ ███████  \033[34m║\n \
 	╚═══════════════════════════════════════════════════════════════════════╝"
 	
-#define TRUE			1
+#define TRUE	1
 #define FALSE			0
 #define DOLLAR			'$'
 #define DOUBLE_QUOTE	'"'
@@ -74,27 +74,33 @@
 #define ERROR			0
 #define VARIABLE		1
 #define EQUAL			2
-#define VALUE			3
+#define VALUE 3
 
-enum token_type
+enum	token_type
 {
-	PIPE        = 1, // |
-	STRING, 		 // char *
-	HERE_DOC, 		 // <<
-	RED_INPUT, 		 // <
-	RED_APPEND, 	 // >>
-	RED_OUTPUT		 // >
+	PIPE = 1,
+	STRING,
+	HERE_DOC,
+	RED_INPUT,
+	RED_APPEND,
+	RED_OUTPUT
 };
 
-typedef struct s_process{
-	pid_t	pid;
-	int		fd[2];
+typedef struct	s_process{
+	pid_t				pid;
+	int					fd[2];
 	int					heredoc_fd[2];
 	char				**execute;
 	char				**redirects;
-	struct s_process *prev;
-	struct s_process *next;
+	struct s_process	*prev;
+	struct s_process	*next;
 }				t_process;
+
+typedef struct s_export
+{
+	char			*str;
+	struct s_export	*next;
+}				t_export;
 
 typedef struct s_token
 {
@@ -104,29 +110,30 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
-
 typedef struct s_minishell{
 	int			process_count;
 	char		**paths;
 	char		**env;
-	char		**export;
+	t_export	*export;
 	t_process	*process;
-    t_token     *token;
-	
-}       t_minishell;
+	t_token		*token;
+}		t_minishell;
 
-extern t_minishell	m_shell;
+extern	t_minishell	m_shell;
 
 void		init_env(char **env);
-
 
 // ENVIRONMENT
 void		append_env(char **env);
-void    	append_paths();
+void		append_paths(void);
 void		init_env(char **env);
-int     	count_value(char **str);
+int			count_value(char **str);
 
-void    	add_export();
+void		add_export(void);
+t_export	*last_export(t_export *export);
+t_export	*new_export(char *str);
+void		export_add_back(t_export **export, t_export *new);
+
 
 // LIBFT
 int			ft_atoi(const char *str);
@@ -209,7 +216,7 @@ int     	b_echo(char **input);
 
 int			b_export(char **exe);
 void    	show_export();
-void    	new_value_export(char *new, int choose);
+//void    	new_value_export(char *new, int choose);
 int     	export_control(char *str);
 
 #endif

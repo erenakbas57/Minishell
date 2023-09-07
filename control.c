@@ -6,15 +6,15 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 18:13:55 by makbas            #+#    #+#             */
-/*   Updated: 2023/08/29 15:39:39 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/07 17:42:08 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int is_redirects(char *str)
+int	is_redirects(char *str)
 {
-    if (!str)
+	if (!str)
 		return (0);
 	if (str[0] == '<' && str[1] == '<')
 		return (HERE_DOC);
@@ -57,4 +57,3 @@ int	is_whitespace(char c)
 	else
 		return (0);
 }
-

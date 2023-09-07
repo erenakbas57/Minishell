@@ -38,7 +38,7 @@ TOKEN	= token/tokenize.c token/token_lst.c
 LEXER	= lexer/lexerize.c lexer/lexer_lst.c lexer/quote.c lexer/dollar.c
 BUILTIN = builtin/pwd.c builtin/builtin.c builtin/cd.c builtin/exit.c \
 		  builtin/env.c builtin/echo.c builtin/unset.c builtin/export.c
-ENV		= env/add_environment.c env/add_export.c
+ENV		= env/add_environment.c env/add_export.c env/lst_export.c
 CMD		= cmd/cmd.c
 
 # COMMAND
@@ -80,7 +80,7 @@ clean	:
 fclean	:	clean
 			$(RM) $(NAME)
 			$(REMOVE)
-		
+
 re		:	fclean all
 
 run		: all

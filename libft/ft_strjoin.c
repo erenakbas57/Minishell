@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 15:09:31 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/07 15:52:12 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/07 17:17:10 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	add_declare(char **join)
 	int		i;
 	char	*dec;
 
-	dec = ft_calloc(sizeof(char), 11);
 	dec = "declare -x ";
 	i = 0;
 	while (dec[i])
@@ -65,7 +64,6 @@ char	*ft_strjoin_two(char const *s1)
 	if (!join)
 		return (0);
 	add_declare(&join);
-	printf("-%s-\n", join);
 	while (s1[i] != '\0')
 	{
 		if (s1[i] == '=')
