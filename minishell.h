@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 18:00:30 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/06 18:48:07 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/07 15:50:47 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ char*		ft_strlcpy(char *dst, const char *src, int dstsize);
 int			ft_strcmp(const char *s1, const char *s2);
 char		*ft_strdup_two(const char *str);
 char		*ft_strjoin_two(char const *s1);
+void		add_declare(char **join);
 
 // FREE
 void		free_process(void);

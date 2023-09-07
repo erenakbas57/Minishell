@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 18:00:32 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/06 19:05:55 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/07 15:45:11 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,13 @@ void	start_cmd()
 
 void print_token_sequence(t_minishell *m_shell)
 {
-    char **current_token = m_shell->paths;
+    t_token *current_token = m_shell->token;
     
     printf("Token Sequence:\n");
-    int i = 0;
-    while (current_token[i] != NULL)
+    while (current_token != NULL)
     {
-        printf("Token Type: %s\n", current_token[i]);
-		i++;
+        printf("Token Type: %s ve tip : %u\n", current_token->str, current_token->type);
+		current_token = current_token->next;
 
     }
 }
@@ -76,7 +75,6 @@ int main(int ac, char **av, char **env)
 			tokenize(input);
 			if (!lexerize())
 				return (0);
-			print_token_sequence2(&m_shell);
 			start_cmd();
 			free_process();
 			add_history(input);

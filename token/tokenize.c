@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 18:08:12 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/04 15:17:54 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/07 14:46:35 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,8 @@ int    end_token_two(char *str)
     i = 1;
     while (str[i])
     {
-        if (str[i] == DOUBLE_QUOTE || str[i] == SINGLE_QUOTE)
-            return (i);
-        else if (is_whitespace(str[i]))
-            return (i);
+        if (is_whitespace(str[i]) || is_redirects(str))
+            break;
         i++;
     }
     return (i);

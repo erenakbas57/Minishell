@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 15:09:31 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/06 19:06:05 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/07 15:52:12 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,20 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (join);
 }
 
-// void	add_declare(char **join)
-// {
-// 	int		i;
-// 	char	*dec;
+void	add_declare(char **join)
+{
+	int		i;
+	char	*dec;
 
-	
-// 	i = 0;
-// }
+	dec = ft_calloc(sizeof(char), 11);
+	dec = "declare -x ";
+	i = 0;
+	while (dec[i])
+	{
+		(*join)[i] = dec[i];
+		i++;
+	}
+}
 
 char	*ft_strjoin_two(char const *s1)
 {
@@ -54,11 +60,12 @@ char	*ft_strjoin_two(char const *s1)
 	char	*join;
 	
 	join = ft_calloc((ft_strlen(s1) + 14), 1);
-	i = 11;
-	j = 0;
+	i = 0;
+	j = 11;
 	if (!join)
 		return (0);
-	
+	add_declare(&join);
+	printf("-%s-\n", join);
 	while (s1[i] != '\0')
 	{
 		if (s1[i] == '=')
