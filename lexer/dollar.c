@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 15:14:22 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/07 17:39:46 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/07 18:52:48 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,20 @@
 
 char*     env_add(char* env)
 {
-	int i;
 	char* path;
+	t_env	*environment;
 	
-	i = 0;
+	environment = m_shell.env;
 	env = ft_strjoin(env, "=");
-	while (m_shell.env[i])
+	while (environment)
 	{
-		if (ft_strncmp(m_shell.env[i], env, ft_strlen(env)) == 0)
+		if (ft_strncmp(environment->str, env, ft_strlen(env)) == 0)
 		{
-			path = m_shell.env[i];
+			path = environment->str;
 			env = ft_substr(path, ft_strlen(env), ft_strlen(path) - ft_strlen(env));
 			return (env);
 		}
-		i++;
+		environment = environment->next;
 	}
 	return (NULL);
 }

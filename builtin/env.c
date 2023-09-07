@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:06:24 by makbas            #+#    #+#             */
-/*   Updated: 2023/08/31 19:14:44 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/07 18:55:36 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,21 @@ void    env_write(char* str)
 {
     int i;
     char* path;
+    t_env   *env;
     
     i = 0;
     str = ft_strjoin(str, "=");
-    while (m_shell.env[i])
+    env = m_shell.env;
+    while (env)
     {
-        if (ft_strncmp(m_shell.env[i], str, ft_strlen(str)) == 0)
+        if (ft_strncmp(env->str, str, ft_strlen(str)) == 0)
         {
-            path = m_shell.env[i];
+            path = env->str;
             str = ft_substr(path, ft_strlen(str), ft_strlen(path) - ft_strlen(str));
             printf("%s\n", str);
             return ;
         }
-        i++;
+        env = env->next;
     }
     printf(MAGENTA"ENV: "RED);
     printf("%s: "RESET, m_shell.process->execute[1]);
@@ -37,19 +39,17 @@ void    env_write(char* str)
 
 int b_env()
 {
-    char    **env;
+    t_env   *env;
     char    **exe;
-    int     i;
-    
-    i = 0;
+
     env = m_shell.env;
     exe = m_shell.process->execute;
     if (exe[1] == NULL)
     {
-        while (env[i])
+        while (env)
         {
-            printf("%s\n", env[i]);
-            i++;
+            printf("%s\n", env->str);
+            env = env->next;
         }
     }
     else if (exe[1] != NULL && exe[2] == NULL)

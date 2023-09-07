@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 18:00:30 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/07 17:46:18 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/07 17:57:05 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,12 @@ typedef struct s_export
 	struct s_export	*next;
 }				t_export;
 
+typedef struct s_env
+{
+	char					*str;
+	struct s_env	*next;
+}				t_env;
+
 typedef struct s_token
 {
 	char			*str;
@@ -113,7 +119,7 @@ typedef struct s_token
 typedef struct s_minishell{
 	int			process_count;
 	char		**paths;
-	char		**env;
+	t_env		*env;
 	t_export	*export;
 	t_process	*process;
 	t_token		*token;
@@ -125,6 +131,9 @@ void		init_env(char **env);
 
 // ENVIRONMENT
 void		append_env(char **env);
+t_env		*last_env(t_env *env);
+t_env		*new_env(char *str);
+void		env_add_back(t_env **env, t_env *new);
 void		append_paths(void);
 void		init_env(char **env);
 int			count_value(char **str);

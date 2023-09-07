@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 18:20:09 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/07 16:47:33 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/07 18:57:51 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,25 +43,7 @@ int     export_control(char *str)
 
 // void    new_value_export(char *new, int choose)
 // {
-//     int len;
     
-//     len = count_value(m_shell.export);
-//     if (choose == VARIABLE)
-//     {
-//         m_shell.export[len + 1] = new;
-//     }
-//     else if (choose == EQUAL)
-//     {
-//         append_env(m_shell.env);
-//         m_shell.env[len + 1] = new;
-//         new = ft_strdup_two(new);
-//         add_export(len + 2);
-//         m_shell.export[len + 1] = new;
-//     }
-//     else if(choose == VALUE)
-//     {
-//         len = 10;
-//     }
 // }
 
 void    show_export()

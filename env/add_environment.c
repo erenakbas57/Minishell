@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:33:23 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/07 16:51:59 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/07 17:58:59 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,12 @@ int     count_value(char **str)
 
 void    append_env(char **env)
 {
-    int     i;
-    int     len;
-
-    len = 0;
-    while (env[len])
-        len++;
-    m_shell.env = ft_calloc(sizeof(char *), len + 1);
+    int         i;
+    
     i = 0;
-    while (i < len)
+    while (env[i])
     {
-        m_shell.env[i] = env[i];
+        env_add_back(&m_shell.env, new_env(ft_strdup(env[i])));
         i++;
     }
 }
@@ -51,6 +46,7 @@ void    append_paths()
 {
     char    *path;
 
-    path = m_shell.env[2] + 5;
+    path = m_shell.env->next->str;
+    printf("path kısmı : %s\n", path);
     m_shell.paths = ft_split(path, ':');
 }
