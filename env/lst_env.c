@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
+/*   By: rdemiray <rdemiray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/07 17:53:58 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/07 17:54:22 by makbas           ###   ########.fr       */
+/*   Created: 2023/09/07 19:10:43 by rdemiray          #+#    #+#             */
+/*   Updated: 2023/09/07 19:11:47 by rdemiray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_env	*new_env(char *str)
 
 	env = ft_calloc(sizeof(t_env), 1);
 	env->str = str;
-	env->next = NULL;
+	env->next = 0; //null
 	return (env);
 }
 

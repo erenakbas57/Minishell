@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
+/*   By: rdemiray <rdemiray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 18:00:30 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/07 17:57:05 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/07 19:47:56 by rdemiray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ typedef struct s_export
 
 typedef struct s_env
 {
-	char					*str;
+	char			*str;
 	struct s_env	*next;
 }				t_env;
 
@@ -131,9 +131,6 @@ void		init_env(char **env);
 
 // ENVIRONMENT
 void		append_env(char **env);
-t_env		*last_env(t_env *env);
-t_env		*new_env(char *str);
-void		env_add_back(t_env **env, t_env *new);
 void		append_paths(void);
 void		init_env(char **env);
 int			count_value(char **str);
@@ -206,6 +203,13 @@ int     	quote_control(char* quote);
 char*     	env_add(char* env);
 int     	env_control(char* token, char** str, int* i);
 
+//lst_env && lst_export
+void		env_add_back(t_env **env, t_env *new);
+t_env		*new_env(char *str);
+t_env		*last_env(t_env *env);
+void		export_add_back(t_export **export, t_export *new);
+t_export	*new_export(char *str);
+t_export	*last_export(t_export *export);
 
 
 // BUILTIN
@@ -225,7 +229,7 @@ int     	b_echo(char **input);
 
 int			b_export(char **exe);
 void    	show_export();
-//void    	new_value_export(char *new, int choose);
+void    	new_value_export(char *new, int choose);
 int     	export_control(char *str);
 
 #endif

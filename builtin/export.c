@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
+/*   By: rdemiray <rdemiray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 18:20:09 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/07 18:57:51 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/07 19:47:08 by rdemiray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,46 @@ int     export_control(char *str)
     return (value);
 }
 
-// void    new_value_export(char *new, int choose)
-// {
+ void    new_value_export(char *new, int choose)
+ {
+    int len;
+    int i;
+    t_export *new_str;
+    t_export *export_last;
+    t_env *env_last;
     
-// }
+    new_str = new_export(new);
+    export_last = last_export(m_shell.export);
+    env_last = last_env(m_shell.env);
+    len = 0;
+    i = 0;
+    while(m_shell.export)
+    {
+        m_shell.export= m_shell.export->next;
+        len++;
+    }
+    if (choose == VARIABLE)
+        export_last->next->str = new;
+    else if (choose == EQUAL)
+    {
+        append_env(&m_shell.env->str);
+        
+        while(i<=len)
+        {
+            m_shell.env = m_shell.env->next;
+            i++;
+        }
+        m_shell.env->next->str = new;
+        new = ft_strdup_two(new);
+        add_export();
+        export_last->next->str = new;
+        
+    }
+    else if(choose == VALUE)
+    {
+        len = 10;
+    }
+}
 
 void    show_export()
 {
@@ -78,12 +114,12 @@ int     b_export(char **exe)
             choose = export_control(cpy_exe[i]);
             if (choose == ERROR)
                 error++;
-            // else if (choose == VARIABLE)
-            //     new_value_export(cpy_exe[i], VALUE);
-            // else if (choose == EQUAL)
-            //     new_value_export(cpy_exe[i], EQUAL);
-            // else if(choose == VALUE)
-            //     new_value_export(cpy_exe[i], VALUE);
+             else if (choose == VARIABLE)
+                 new_value_export(cpy_exe[i], VALUE);
+             else if (choose == EQUAL)
+                 new_value_export(cpy_exe[i], EQUAL);
+             else if(choose == VALUE)
+                 new_value_export(cpy_exe[i], VALUE);
             i++;
         }
     }

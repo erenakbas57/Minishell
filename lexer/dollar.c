@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
+/*   By: rdemiray <rdemiray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 15:14:22 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/07 18:52:48 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/07 19:44:43 by rdemiray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,20 @@
 
 char*     env_add(char* env)
 {
+	int i;
 	char* path;
-	t_env	*environment;
 	
-	environment = m_shell.env;
+	i = 0;
 	env = ft_strjoin(env, "=");
-	while (environment)
+	while (m_shell.env->str)
 	{
-		if (ft_strncmp(environment->str, env, ft_strlen(env)) == 0)
+		if (ft_strncmp(m_shell.env->str, env, ft_strlen(env)) == 0)
 		{
-			path = environment->str;
+			path = m_shell.env->str;
 			env = ft_substr(path, ft_strlen(env), ft_strlen(path) - ft_strlen(env));
 			return (env);
 		}
-		environment = environment->next;
+		m_shell.env = m_shell.env->next;
 	}
 	return (NULL);
 }
