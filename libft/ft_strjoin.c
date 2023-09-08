@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 15:09:31 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/07 17:17:10 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/08 18:03:56 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ char	*ft_strjoin_two(char const *s1)
 		}
 		else
 			join[j] = s1[i];
-		i++;
 		j++;
+		i++;
 	}
 	join[j] = '\"';
 	return (join);
