@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 18:20:09 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/08 18:26:17 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/09 16:55:17 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,37 @@ int     export_control(char *str)
     return (value);
 }
 
+void    export_upt_ex(char *upt, int choose)
+{
+    t_export    *upt_ex;
+    t_env       *upt_env;
+    
+    upt_ex = find_export(m_shell.export, upt);
+    upt_env = find_env(m_shell.env, upt);
+    if (choose == EQUAL)
+    {
+        free(upt_ex->str);
+        free(upt_env->str);
+        upt_ex->str = ft_strdup_two(upt, 14, EQUAL);
+        upt_env->str = ft_strdup(upt);
+    }
+    else if (choose == VALUE)
+    {
+        free(upt_ex->str);
+        free(upt_env->str);
+        upt_ex->str = ft_strjoin_two(upt);
+        upt_env->str = ft_strdup(upt);
+    }
+}
+
 void    new_value_export(char *new, int choose)
 {
-    if (choose == VARIABLE)
+    t_export    *upt;
+
+    upt = find_export(m_shell.export, new);
+    if (upt)
+        export_upt_ex(new, choose);
+    else if (choose == VARIABLE)
         export_add_back(&m_shell.export, new_export(ft_strdup_two(new, 12, VARIABLE)));
     else if (choose == EQUAL)
     {

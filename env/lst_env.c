@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 17:53:58 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/07 17:54:22 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/09 16:41:57 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,20 @@ t_env	*last_env(t_env *env)
 	while (env->next != 0)
 		env = env->next;
 	return (env);
+}
+
+t_env	*find_env(t_env *env, char *find)
+{
+	t_env	*environment;
+
+	environment = env;
+	if (!environment)
+		return (0);
+	while (environment)
+	{
+		if (ft_strcmp_env(environment->str, find))
+			return (environment);
+		environment = environment->next;
+	}
+	return (0);
 }

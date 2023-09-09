@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 18:00:30 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/08 18:05:18 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/09 16:45:32 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ typedef struct s_export
 
 typedef struct s_env
 {
-	char					*str;
+	char			*str;
 	struct s_env	*next;
 }				t_env;
 
@@ -134,6 +134,7 @@ void		append_env(char **env);
 t_env		*last_env(t_env *env);
 t_env		*new_env(char *str);
 void		env_add_back(t_env **env, t_env *new);
+t_env		*find_env(t_env *env, char *find);
 
 void		append_paths(void);
 void		init_env(char **env);
@@ -143,24 +144,33 @@ void		add_export(void);
 t_export	*last_export(t_export *export);
 t_export	*new_export(char *str);
 void		export_add_back(t_export **export, t_export *new);
-
+t_export	*find_export(t_export *export, char *find);
 
 // LIBFT
 int			ft_atoi(const char *str);
 void		*ft_memset(void *b, int c, size_t len);
 void		*ft_calloc(size_t count, size_t size);
 void		ft_bzero(void *s, size_t n);
-char		*ft_strdup(const char *str);
+
 size_t		ft_strlen(const char *str);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
-char		*ft_strjoin(char const *s1, char const *s2);
-int			ft_strncmp(const char *s1, const char *s2, size_t n);
+
+
 char		**ft_split(char const *s, char c);
 char		*ft_strchr(const char *s, int c);
 char*		ft_strlcpy(char *dst, const char *src, int dstsize);
-int			ft_strcmp(const char *s1, const char *s2);
+
 char		*ft_strdup_two(const char *str, int size, int choose);
+char		*ft_strdup(const char *str);
+
 char		*ft_strjoin_two(char const *s1);
+char		*ft_strjoin(char const *s1, char const *s2);
+
+int			ft_strncmp(const char *s1, const char *s2, size_t n);
+int			ft_strcmp(const char *s1, const char *s2);
+int			ft_strcmp_ex(const char *s1, const char *s2);
+int			ft_strcmp_env(const char *s1, const char *s2);
+
 void		add_declare(char **join);
 
 // FREE
@@ -228,5 +238,7 @@ int			b_export(char **exe);
 void    	show_export();
 void    	new_value_export(char *new, int choose);
 int     	export_control(char *str);
+void    	export_update(char *upt, int choose);
+
 
 #endif

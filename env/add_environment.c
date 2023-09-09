@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:33:23 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/07 17:58:59 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/09 14:27:39 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void    append_paths()
 {
     char    *path;
 
-    path = m_shell.env->next->str;
-    printf("path kısmı : %s\n", path);
+    path = (m_shell.env->next->next->str) + 5;
     m_shell.paths = ft_split(path, ':');
 }

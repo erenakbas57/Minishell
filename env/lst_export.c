@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 16:57:01 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/07 17:00:56 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/09 16:41:53 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,20 @@ t_export	*last_export(t_export *export)
 	while (export->next != 0)
 		export = export->next;
 	return (export);
+}
+
+t_export	*find_export(t_export *ex, char *find)
+{
+	t_export	*export;
+
+	export = ex;
+	if (!export)
+		return (0);
+	while (export)
+	{
+		if (ft_strcmp_ex(export->str, find))
+			return (export);
+		export = export->next;
+	}
+	return (0);
 }
