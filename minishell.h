@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 18:00:30 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/09 16:45:32 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/09 17:26:44 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,5 +240,5 @@ void    	new_value_export(char *new, int choose);
 int     	export_control(char *str);
 void    	export_update(char *upt, int choose);
 
-
+int 	b_unset(char **exe);
 #endif

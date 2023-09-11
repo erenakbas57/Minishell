@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 18:00:32 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/09 14:51:30 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/11 19:51:03 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	start_cmd(void)
 	{
 		run_builtin(process);
 	}
+	
 }
 
 int	main(int ac, char **av, char **env)

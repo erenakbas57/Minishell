@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 16:44:59 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/09 15:45:23 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/11 18:11:43 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ char	*ft_strdup_two(const char *str, int size, int choose)
     }
 	if (choose == EQUAL)
     {
-        d[j++] = '\"';
-        d[j++] = '\"';
+        d[j] = '\"';
+		j++;
+		d[j] = '\"';
     }
-	j++;
 	return (d);
 }

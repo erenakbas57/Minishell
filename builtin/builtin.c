@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 23:00:25 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/07 18:53:44 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/09 17:37:42 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,6 @@ void    run_builtin(t_process *process)
         b_echo(input);
     if (ft_strcmp(exe, "export"))
         b_export(input);
-    // if (ft_strcmp(exe, "unset"))
-    //     b_unset(input);
+    if (ft_strcmp(exe, "unset"))
+        b_unset(input);
 }
