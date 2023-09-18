@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 16:57:01 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/09 17:54:53 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/18 14:17:05 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,6 @@ t_export	*new_export(char *str)
 	export = ft_calloc(sizeof(t_export), 1);
 	export->str = str;
 	export->next = NULL;
-	return (export);
-}
-
-t_export	*last_export(t_export *export)
-{
-	if (!export)
-		return (0);
-	while (export->next != 0)
-		export = export->next;
 	return (export);
 }
 

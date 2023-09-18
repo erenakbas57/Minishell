@@ -6,13 +6,13 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 00:01:39 by makbas            #+#    #+#             */
-/*   Updated: 2023/08/01 14:47:57 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/18 14:22:53 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_process    *process_init()
+t_process	*new_process(void)
 {
 	t_process	*process;
 
@@ -23,15 +23,6 @@ t_process    *process_init()
 	process->redirects = ft_calloc(sizeof(char *), 1);
 	process->prev = NULL;
 	process->next = NULL;
-	return (process);
-}
-
-t_process	*last_process(t_process *process)
-{
-	if (!process)
-		return (0);
-	while (process->next != 0)
-		process = process->next;
 	return (process);
 }
 

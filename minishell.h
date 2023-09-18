@@ -6,12 +6,12 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 18:00:30 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/09 17:26:44 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/18 17:24:42 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
-#define MINISHELL_H
+# define MINISHELL_H
 
 # include <stdio.h>
 # include <readline/readline.h>
@@ -28,23 +28,6 @@
 # include <sys/ioctl.h>
 
 # define RESET			"\033[0m"
-# define BLACK			"\033[30m"
-# define RED 			"\033[31m"
-# define LIGHT_RED 		"\033[91m"
-# define GREEN 			"\033[32m"
-# define LIGHT_GREEN 	"\033[92m"
-# define YELLOW 		"\033[33m"
-# define LIGHT_YELLOW 	"\033[93m"
-# define BLUE 			"\033[34m"
-# define LIGHT_BLUE 	"\033[94m"
-# define MAGENTA 		"\033[35m"
-# define LIGHT_MAGENTA 	"\033[95m"
-# define CYAN 			"\033[36m"
-# define LIGHT_CYAN 	"\033[96m"
-# define WHITE 			"\033[37m"
-# define GREY 			"\033[90m"
-# define LIGHT_GREY 	"\033[37m"
-
 # define BLACK_BOLD 	"\033[1;30m"
 # define RED_BOLD 		"\033[1;31m"
 # define GREEN_BOLD 	"\033[1;32m"
@@ -54,39 +37,33 @@
 # define CYAN_BOLD 		"\033[1;36m"
 # define WHITE_BOLD 	"\033[1;37m"
 
-# define WELCOME "\033[34m\
-	╔═══════════════════════════════════════════════════════════════════════╗    \n \
-	║"RED"   ███    ███ ██ ███    ██ ██ ███████ ██   ██ ███████ ██      ██       \033[34m║\n \
-	║"RED"   ████  ████ ██ ████   ██ ██ ██      ██   ██ ██      ██      ██       \033[34m║\n \
-	║"RED"   ██ ████ ██ ██ ██ ██  ██ ██ ███████ ███████ █████   ██      ██       \033[34m║\n \
-	║"RED"   ██  ██  ██ ██ ██  ██ ██ ██      ██ ██   ██ ██      ██      ██       \033[34m║\n \
-	║"RED"   ██      ██ ██ ██   ████ ██ ███████ ██   ██ ███████ ███████ ███████  \033[34m║\n \
-	╚═══════════════════════════════════════════════════════════════════════╝"
-	
-#define TRUE	1
-#define FALSE			0
-#define DOLLAR			'$'
-#define DOUBLE_QUOTE	'"'
-#define SINGLE_QUOTE	'\''
-#define CHILD_PROCESS	0
-#define MAIN_PROCESS	1
+# define TRUE			1
+# define FALSE			0
+# define DOLLAR			'$'
+# define DOUBLE_QUOTE	'"'
+# define SINGLE_QUOTE	'\''
+# define CHILD_PROCESS	0
+# define MAIN_PROCESS	1
+# define REPLACE 1
+# define APPEND 0
 
-#define ERROR			0
-#define VARIABLE		1
-#define EQUAL			2
-#define VALUE 3
+# define ERROR			0
+# define VARIABLE		1
+# define EQUAL			2
+# define VALUE			3
 
-enum	token_type
+enum e_token_type
 {
 	PIPE = 1,
-	STRING,
-	HERE_DOC,
-	RED_INPUT,
-	RED_APPEND,
-	RED_OUTPUT
+	STRING = 2,
+	HERE_DOC = 3,
+	RED_INPUT = 4,
+	RED_APPEND = 5,
+	RED_OUTPUT = 6
 };
 
-typedef struct	s_process{
+typedef struct s_process
+{
 	pid_t				pid;
 	int					fd[2];
 	int					heredoc_fd[2];
@@ -110,55 +87,59 @@ typedef struct s_env
 
 typedef struct s_token
 {
-	char			*str;
-	enum token_type	type;
-	struct s_token	*prev;
-	struct s_token	*next;
+	char				*str;
+	enum e_token_type	type;
+	struct s_token		*prev;
+	struct s_token		*next;
 }	t_token;
 
-typedef struct s_minishell{
+typedef struct s_minishell
+{
 	int			process_count;
+	int			parent_pid;
+	int			ignore;
 	char		**paths;
+	char		**envp;
 	t_env		*env;
 	t_export	*export;
 	t_process	*process;
 	t_token		*token;
 }		t_minishell;
 
-extern	t_minishell	m_shell;
+t_minishell	g_mshell;
 
+//main.c
 void		init_env(char **env);
+void	wait_cmd(void);
+void	start_cmd(void);
+void	launch_ms(char *input);
 
-// ENVIRONMENT
+// add_environment.c
 void		append_env(char **env);
-t_env		*last_env(t_env *env);
+int			count_value(char **str);
+void		append_export(void);
+void		append_paths(void);
+
+//lst_env.c
 t_env		*new_env(char *str);
 void		env_add_back(t_env **env, t_env *new);
 t_env		*find_env(t_env *env, char *find);
 
-void		append_paths(void);
-void		init_env(char **env);
-int			count_value(char **str);
-
-void		add_export(void);
-t_export	*last_export(t_export *export);
+//lst_export.c
 t_export	*new_export(char *str);
 void		export_add_back(t_export **export, t_export *new);
 t_export	*find_export(t_export *export, char *find);
 
-// LIBFT
+//libft
 int			ft_atoi(const char *str);
 void		*ft_memset(void *b, int c, size_t len);
 void		*ft_calloc(size_t count, size_t size);
 void		ft_bzero(void *s, size_t n);
-
 size_t		ft_strlen(const char *str);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
-
-
 char		**ft_split(char const *s, char c);
 char		*ft_strchr(const char *s, int c);
-char*		ft_strlcpy(char *dst, const char *src, int dstsize);
+char		*ft_strlcpy(char *dst, const char *src, int dstsize);
 
 char		*ft_strdup_two(const char *str, int size, int choose);
 char		*ft_strdup(const char *str);
@@ -167,78 +148,111 @@ char		*ft_strjoin_two(char const *s1);
 char		*ft_strjoin(char const *s1, char const *s2);
 
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
+
 int			ft_strcmp(const char *s1, const char *s2);
 int			ft_strcmp_ex(const char *s1, const char *s2);
 int			ft_strcmp_env(const char *s1, const char *s2);
 
-void		add_declare(char **join);
-
-// FREE
-void		free_process(void);
-void		free_array(char **arr);
-
-// CONTROL
-int 		is_redirects(char *str);
+//is_Redirects.c
+int			is_redirects(char *str);
 int			is_whitespace(char c);
 int			is_char(char c);
 int			is_number(char *nbr);
 
-// TOKEN_LST
+//signals.c
+void		ctrl_c(int sig);
+void		ctrl_d(char *input);
+
+//free.c
+
+void		free_process(void);
+void		free_array(char **arr);
+void		free_token(void);
+
+//error.c
+void	token_error(int type);
+
+
+//tokenize.c
+void		tokenize(char *input);
+void		parse_string(char **str);
+int			end_token_two(char *str);
+void		end_token(char **str, char type);
+
+//token_lst.c
 int			token_add_back(t_token **token, t_token *new, int plus);
-t_token		*new_token(char *str, enum token_type type);
-t_token		*last_token(t_token *token);
-
-// TOKENIZE
-void    	tokenize(char *input);
-void    	parse_string(char **str);
-int     	end_token_two(char *str);
-void    	end_token(char **str, char type);
+t_token		*new_token(char *str, enum e_token_type type);
 
 
-// LEXER_LST
-t_process	*process_init();
-t_process	*last_process(t_process *process);
+//process_lst.c
+t_process	*new_process(void);
 void		process_add_back(t_process **process, t_process *new);
 
-// LEXERIZE
-int     	append_process(t_token **token, t_process *process);
-char    	**add_array(char **exe_red, char *token);
-int    		lexerize();
-void    	free_token();
+//lexerize.c
+int			append_process(t_token **token, t_process *process);
+char		**add_array(char **exe_red, char *token);
+int			lexerize(void);
 
-// QUOTE
-char    	*clear_quote(char *token);
-char    	*take_sub_text(char *str, int *i, char type);
-void    	add_text(char **array, char *new);
+//quote.c
+char		*clear_quote(char *token);
+char		*take_sub_text(char *str, int *i, char type);
+void		add_text(char **array, char *new);
+char		*take_text(char *str, int *i);
 
-// DOLLAR
-char*   	dollar_control(char* token);
-int     	quote_control(char* quote);
-char*     	env_add(char* env);
-int     	env_control(char* token, char** str, int* i);
+//dollar.c
+char		*dollar_control(char *token);
+int			quote_control(char *quote);
+char		*env_add(char *env);
+int			env_control(char *token, char **str, int *i);
 
-
-
-// BUILTIN
-int     	is_builtin(char *input);
+//builtin.c
+int			is_builtin(char *input);
 void		run_builtin(t_process *process);
 
-int     	b_pwd();
+//builtin
+int			b_pwd(void);
+int			b_cd(void);
+int			b_exit(void);
 
-int     	b_cd();
+//env.c
+int			b_env(void);
+void		env_write(char *str);
 
-int			b_exit();
-
-void    	env_write(char* str);
-int 		b_env();
-
-int     	b_echo(char **input);
-
+//export.c
 int			b_export(char **exe);
-void    	show_export();
-void    	new_value_export(char *new, int choose);
-int     	export_control(char *str);
-void    	export_update(char *upt, int choose);
+void		show_export(void);
+void		new_value_export(char *new, int choose);
+int			export_control(char *str);
+void		update_export(char *upt, int choose);
 
-int 	b_unset(char **exe);
+//unset.c
+int			b_unset(char **exe);
+void		export_lst_delone(char *str);
+void		env_lst_delone(char *str);
+
+//cmd.c
+void		run_cmd(t_process *process);
+
+
+int			b_echo(char **input);
+int	echo_parameter(char **prm);
+void	put_char(char *input);
+
+
+//hreredoc.c
+void	is_heredoc(void);
+void	start_heredoc(int *heredoc_fd, char *end_str);
+void	close_heredoc(int sig);
+
+
+//fd.c
+int	contain_heredoc(t_process *process);
+void	close_heredoc_fd(t_process *process);
+void	close_all_fd(void);
+
+//path.c
+char	*get_path(char *cmd);
+void	check_dir(char *cmd);
+
+
 #endif

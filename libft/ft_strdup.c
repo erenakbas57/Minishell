@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 16:44:59 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/11 18:11:43 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/18 15:00:58 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,29 +30,43 @@ char	*ft_strdup(const char *str)
 	return (d);
 }
 
+void	add_declare_dup(char **dup)
+{
+	int		i;
+	char	*dec;
+
+	dec = "declare -x ";
+	i = 0;
+	while (dec[i])
+	{
+		(*dup)[i] = dec[i];
+		i++;
+	}
+}
+
 char	*ft_strdup_two(const char *str, int size, int choose)
 {
 	char	*d;
 	int		i;
-    int     j;
-    
+	int		j;
+
 	d = ft_calloc((ft_strlen(str) + size), 1);
 	if (d == NULL)
 		return (0);
-    add_declare(&d);
-    i = 0;
-    j = 11;
+	add_declare_dup(&d);
+	i = 0;
+	j = 11;
 	while (str[i])
 	{
-        d[j] = str[i];
-        i++;
-        j++;
-    }
+		d[j] = str[i];
+		i++;
+		j++;
+	}
 	if (choose == EQUAL)
-    {
-        d[j] = '\"';
+	{
+		d[j] = '\"';
 		j++;
 		d[j] = '\"';
-    }
+	}
 	return (d);
 }

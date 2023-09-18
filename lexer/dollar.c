@@ -6,39 +6,44 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 15:14:22 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/07 18:52:48 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/18 18:08:31 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+/*
+dolar'ı farklı yaptık
+*/
 
-char*     env_add(char* env)
+char	*env_add(char* env)
 {
-	char* path;
+	char	*path;
 	t_env	*environment;
-	
-	environment = m_shell.env;
+
+	environment = g_mshell.env;
 	env = ft_strjoin(env, "=");
 	while (environment)
 	{
 		if (ft_strncmp(environment->str, env, ft_strlen(env)) == 0)
 		{
 			path = environment->str;
-			env = ft_substr(path, ft_strlen(env), ft_strlen(path) - ft_strlen(env));
+			env = ft_substr(path, ft_strlen(env), \
+				ft_strlen(path) - ft_strlen(env));
 			return (env);
 		}
 		environment = environment->next;
 	}
-	return (NULL);
+	env = ft_substr(env, 0, ft_strlen(env) - 1);
+	return (env);
 }
 
-int     env_control(char* token, char** str, int* i)
+int	env_control(char *token, char **str, int *i)
 {
-	int     len;
-	int     start;
-	char*   env;
-	
+	int		len;
+	int		start;
+	char	*env;
+
 	len = 0;
 	start = *i;
 	while (token[*i] && is_char(token[*i]))
@@ -54,12 +59,12 @@ int     env_control(char* token, char** str, int* i)
 	return (len);
 }
 
-int     quote_control(char* quote)
+int	quote_control(char *quote)
 {
-	int count;
-	int i;
-	int start;
-	int finish;
+	int	count;
+	int	i;
+	int	start;
+	int	finish;
 
 	start = 0;
 	finish = 0;
@@ -76,7 +81,8 @@ int     quote_control(char* quote)
 			finish++;
 	}
 	count = start + finish;
-	if (((count % 2 == 0) && (start % 2 == 1)) || ((finish == 1) && (start == 1)))
+	if (((count % 2 == 0) && (start % 2 == 1)) || \
+		((finish == 1) && (start == 1)))
 		return (0);
 	if (count == 0)
 		return (1);
@@ -84,17 +90,17 @@ int     quote_control(char* quote)
 }
 
 
-char*   dollar_control(char* token)
+char	*dollar_control(char *token)
 {
+	int		token_i;
+	int		str_i;
+	char	*str;
+
 	if (ft_strchr(token, DOLLAR) && quote_control(token))
-	{   
-		int     token_i;
-		int     str_i;
-		char*   str;
-		
+	{
 		token_i = 0;
 		str_i = 0;
-		str = ft_calloc(ft_strlen(token), sizeof(char*));
+		str = ft_calloc(ft_strlen(token), sizeof(char *));
 		while (token[token_i])
 		{
 			if (token[token_i] == DOLLAR)

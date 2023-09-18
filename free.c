@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 17:25:54 by makbas            #+#    #+#             */
-/*   Updated: 2023/08/26 17:26:38 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/18 12:03:48 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	free_process(void)
 	t_process	*tmp;
 	t_process	*process;
 
-	process = m_shell.process;
+	process = g_mshell.process;
 	if (!process)
 		return ;
 	while (process)
@@ -41,4 +41,24 @@ void	free_array(char **arr)
 		i++;
 	}
 	free(arr);
+}
+
+void	free_token(void)
+{
+	t_token		*tmp;
+	t_token		*token;
+
+	token = g_mshell.token;
+	while (token)
+	{
+		free(token->str);
+		token = token->next;
+	}
+	token = g_mshell.token;
+	while (token)
+	{
+		tmp = token;
+		token = token->next;
+		free(tmp);
+	}
 }

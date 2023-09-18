@@ -1,26 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   add_export.c                                       :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/01 17:05:41 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/08 17:40:01 by makbas           ###   ########.fr       */
+/*   Created: 2023/09/16 16:00:18 by makbas            #+#    #+#             */
+/*   Updated: 2023/09/18 14:08:10 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
-void    add_export()
+void	ctrl_c(int sig)
 {
-    t_env   *env;
+	(void)sig;
+	g_mshell.ignore = TRUE;
+	ioctl(STDIN_FILENO, TIOCSTI, "\n");
+	write(1, "\033[A", 3);
+}
 
-    env = m_shell.env;
-    while (env)
-    {
-        export_add_back(&m_shell.export, \
-            new_export(ft_strjoin_two(env->str)));
-        env = env->next;
-    }
+void	ctrl_d(char *input)
+{
+	if (!input)
+	{
+		printf("\n");
+		printf("\033[A");
+		printf(YELLOW_BOLD"Minishell>> : "RESET);
+		printf("exit\n");
+		exit(errno);
+	}
 }

@@ -27,7 +27,7 @@ CYAN_BOLD 		=\033[1;36m
 WHITE_BOLD 		=\033[1;37m
 
 # FILE
-SRCS 	= main.c control.c free.c
+SRCS 	= main.c control.c free.c signals.c error.c
 LIBFT 	= libft/ft_bzero.c libft/ft_memset.c libft/ft_calloc.c \
 		  libft/ft_substr.c libft/ft_strdup.c libft/ft_strlen.c \
 		  libft/ft_strjoin.c libft/ft_strncmp.c libft/ft_split.c \
@@ -35,31 +35,33 @@ LIBFT 	= libft/ft_bzero.c libft/ft_memset.c libft/ft_calloc.c \
 		  libft/ft_atoi.c
 
 TOKEN	= token/tokenize.c token/token_lst.c
-LEXER	= lexer/lexerize.c lexer/lexer_lst.c lexer/quote.c lexer/dollar.c
+LEXER	= lexer/lexerize.c lexer/process_lst.c lexer/quote.c lexer/dollar.c
 BUILTIN = builtin/pwd.c builtin/builtin.c builtin/cd.c builtin/exit.c \
 		  builtin/env.c builtin/echo.c builtin/unset.c builtin/export.c
-ENV		= env/add_environment.c env/add_export.c env/lst_export.c env/lst_env.c
-CMD		= cmd/cmd.c
+ENV		= env/add_environment.c env/lst_export.c env/lst_env.c
+CMD		= cmd/cmd.c cmd/path.c
+REDIRECT = redirect/heredoc.c redirect/fd.c
 
 # COMMAND
-SUCCESS		=	@echo "$(GREEN)BUILD SUCCESSFULL !$(RESET)"
-REMOVE		=	@echo "$(RED)Deleted !$(RESET)"
-
+SUCCESS		=	@printf "$(GREEN_BOLD)BUILD SUCCESSFULL !$(RESET)\n"
+O_REMOVE	=	@printf "$(RED_BOLD).o files Deleted !$(RESET)\n"
+M_REMOVE	=	@printf "$(RED_BOLD)Minishell file Deleted !$(RESET)\n"
 
 # VARIABLES
 NAME		=	minishell
-OBJ			=	$(SRCS:%.c=%.o)  \
-				$(LIBFT:%.c=%.o) \
-				$(TOKEN:%.c=%.o) \
-				$(ENV:%.c=%.o)   \
-				$(LEXER:%.c=%.o) \
-				$(CMD:%.c=%.o) \
+OBJ			=	$(SRCS:%.c=%.o)  	\
+				$(LIBFT:%.c=%.o) 	\
+				$(TOKEN:%.c=%.o) 	\
+				$(ENV:%.c=%.o)   	\
+				$(LEXER:%.c=%.o) 	\
+				$(CMD:%.c=%.o) 		\
+				$(REDIRECT:%.c=%.o) \
 				$(BUILTIN:%.c=%.o)
 
-CC			=	gcc
+CC			=	@gcc
 CFLAGS		=	-Wall -Wextra -Werror
 READLINE	=	-lreadline
-RM			=	rm -rf
+RM			=	@rm -rf
 
 
 all: $(NAME)
@@ -69,17 +71,17 @@ $(NAME)	:	$(OBJ)
 			$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(READLINE)
 			$(SUCCESS)
 
-%.o: %.c
-			@echo "$(CYAN)Generating minishell objects...$(RESET)"
+%.o		: 	%.c
+			@printf "$(CYAN_BOLD)GENERATE $(RESET)%-33.33s\r" $@
 			@${CC} ${CFLAGS} -c $< -o $@
 
 clean	:
 			$(RM) $(OBJ)
-			$(REMOVE)
+			$(O_REMOVE)
 
 fclean	:	clean
 			$(RM) $(NAME)
-			$(REMOVE)
+			$(M_REMOVE)
 
 re		:	fclean all
 
