@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 12:18:00 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/19 17:02:47 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/19 17:23:49 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ void	run_cmd(t_process *process)
 		cmd_route(process);
 		run_builtin(process);
 		path = get_path(process->execute[0]);
-		printf("%s", path);
 		execve(path, process->execute, env);
 		command_error(process->execute[0]);
 		exit(errno);
