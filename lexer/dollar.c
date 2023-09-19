@@ -6,15 +6,11 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 15:14:22 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/18 18:08:31 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/19 17:00:06 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-/*
-dolar'ı farklı yaptık
-*/
 
 char	*env_add(char* env)
 {
@@ -56,6 +52,7 @@ int	env_control(char *token, char **str, int *i)
 	env = env_add(env);
 	if (env[0] != DOLLAR)
 		*str = ft_strjoin(*str, env);
+	
 	return (len);
 }
 

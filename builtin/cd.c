@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 23:18:13 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/18 11:49:24 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/19 16:47:23 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	b_cd()
 	arg = g_mshell.process->execute[1];
 	if (arg == NULL)
 	{
+		errno = 1;
 		chdir(getenv("HOME"));
 		return (0);
 	}
@@ -30,4 +31,6 @@ int	b_cd()
 		return (1);
 	}
 	return (0);
+	if(!is_parent())
+		exit (errno);
 }

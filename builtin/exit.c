@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 15:33:07 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/18 15:39:51 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/19 16:48:17 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	b_exit(void)
 	if ((count == 1) || (count == 2 && !(is_number(exe[1]))))
 	{
 		printf("exit\n");
-		exit(0);
+		exit(errno);
 	}
 	else if ((count == 2) && !(is_number(exe[1])))
 	{
@@ -38,6 +38,7 @@ int	b_exit(void)
 	}
 	else if (count > 2)
 	{
+		errno = 1;
 		printf("exit\n");
 		printf("Minishell: ");
 		printf("exit: ");

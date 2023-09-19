@@ -27,20 +27,20 @@ CYAN_BOLD 		=\033[1;36m
 WHITE_BOLD 		=\033[1;37m
 
 # FILE
-SRCS 	= main.c control.c free.c signals.c error.c
+SRCS 	= main.c control.c free.c signals.c error.c add.c 
 LIBFT 	= libft/ft_bzero.c libft/ft_memset.c libft/ft_calloc.c \
 		  libft/ft_substr.c libft/ft_strdup.c libft/ft_strlen.c \
 		  libft/ft_strjoin.c libft/ft_strncmp.c libft/ft_split.c \
 		  libft/ft_strchr.c  libft/ft_strlcpy.c libft/ft_strcmp.c \
-		  libft/ft_atoi.c
+		  libft/ft_atoi.c libft/ft_itoa.c
 
-TOKEN	= token/tokenize.c token/token_lst.c
-LEXER	= lexer/lexerize.c lexer/process_lst.c lexer/quote.c lexer/dollar.c
-BUILTIN = builtin/pwd.c builtin/builtin.c builtin/cd.c builtin/exit.c \
+TOKEN	= token/tokenize.c 
+LEXER	= lexer/lexerize.c lexer/quote.c lexer/dollar.c
+BUILT 	= builtin/pwd.c builtin/builtin.c builtin/cd.c builtin/exit.c \
 		  builtin/env.c builtin/echo.c builtin/unset.c builtin/export.c
-ENV		= env/add_environment.c env/lst_export.c env/lst_env.c
 CMD		= cmd/cmd.c cmd/path.c
-REDIRECT = redirect/heredoc.c redirect/fd.c
+RED		= redirect/heredoc.c redirect/fd.c redirect/redirect.c
+LIST	= lst/token_lst.c lst/lst_export.c lst/lst_env.c lst/process_lst.c
 
 # COMMAND
 SUCCESS		=	@printf "$(GREEN_BOLD)BUILD SUCCESSFULL !$(RESET)\n"
@@ -52,11 +52,11 @@ NAME		=	minishell
 OBJ			=	$(SRCS:%.c=%.o)  	\
 				$(LIBFT:%.c=%.o) 	\
 				$(TOKEN:%.c=%.o) 	\
-				$(ENV:%.c=%.o)   	\
 				$(LEXER:%.c=%.o) 	\
 				$(CMD:%.c=%.o) 		\
-				$(REDIRECT:%.c=%.o) \
-				$(BUILTIN:%.c=%.o)
+				$(LIST:%.c=%.o)		\
+				$(RED:%.c=%.o) 		\
+				$(BUILT:%.c=%.o)	
 
 CC			=	@gcc
 CFLAGS		=	-Wall -Wextra -Werror

@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 14:09:01 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/18 15:34:31 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/19 16:35:15 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	check_dir(char *cmd)
 	if (dir && readdir(dir))
 	{
 		closedir(dir);
+		directory_error(cmd);
 	}
 }
 
@@ -36,8 +37,7 @@ char	*get_path(char *cmd)
 		return (ft_strdup(cmd));
 	paths = g_mshell.paths;
 	if (!paths)
-		printf("hata\n");
-		// command_err(cmd);
+		command_error(cmd);
 	new_cmd = ft_strjoin("/", cmd);
 	while (*paths)
 	{
@@ -45,15 +45,13 @@ char	*get_path(char *cmd)
 		if (!access(path, F_OK))
 		{
 			free(new_cmd);
-			printf("değer : %s", path);
 			return (path);
 		}
 		free(path);
 		paths++;
 	}
 	if (ft_strchr(cmd, '/'))
-		printf("hata\n");
-		// no_file_err(cmd);
+		nofile_error(cmd);
 	free(new_cmd);
 	return (NULL);
 }

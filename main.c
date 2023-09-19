@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 18:00:32 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/18 16:08:17 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/19 16:03:40 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	start_cmd(void)
 	is_heredoc();
 	if (is_builtin(process->execute[0]) && g_mshell.process_count == 1)
 	{
-		run_builtin(process);
+		get_builtin(process);
 		process = process->next;
 	}
 	while (process)
@@ -90,7 +90,7 @@ int	main(int ac, char **av, char **env)
 		g_mshell.ignore = FALSE;
 		signal(SIGINT, ctrl_c);
 		signal(SIGQUIT, SIG_IGN);
-		input = readline(GREEN_BOLD"MINISHELL>> : "RESET);
+		input = readline(YELLOW_BOLD"MINISHELL>> : "RESET);
 		ctrl_d(input);
 		if (g_mshell.ignore)
 		{

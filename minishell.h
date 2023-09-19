@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 18:00:30 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/18 17:24:42 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/19 16:41:05 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ typedef struct s_minishell
 	int			parent_pid;
 	int			ignore;
 	char		**paths;
-	char		**envp;
+	char		**envo;
 	t_env		*env;
 	t_export	*export;
 	t_process	*process;
@@ -119,6 +119,8 @@ void		append_env(char **env);
 int			count_value(char **str);
 void		append_export(void);
 void		append_paths(void);
+char		**append_envo();
+
 
 //lst_env.c
 t_env		*new_env(char *str);
@@ -170,7 +172,14 @@ void		free_array(char **arr);
 void		free_token(void);
 
 //error.c
-void	token_error(int type);
+void		token_error(int type);
+void		command_error(char *str);
+void		directory_error(char *str);
+void		nofile_error(char *str);
+int			is_parent(void);
+
+
+
 
 
 //tokenize.c
@@ -232,6 +241,7 @@ void		env_lst_delone(char *str);
 
 //cmd.c
 void		run_cmd(t_process *process);
+void 		get_builtin(t_process *process);
 
 
 int			b_echo(char **input);
@@ -249,6 +259,12 @@ void	close_heredoc(int sig);
 int	contain_heredoc(t_process *process);
 void	close_heredoc_fd(t_process *process);
 void	close_all_fd(void);
+
+//redirect.c
+void 	get_inputs(t_process *process);
+void	set_outputs(t_process *process);
+
+
 
 //path.c
 char	*get_path(char *cmd);

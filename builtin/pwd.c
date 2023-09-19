@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 22:55:40 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/16 15:37:59 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/19 16:43:19 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,7 @@ int	b_pwd(void)
 	else
 		printf("%s\n", path);
 	free(path);
+	if (!is_parent() || g_mshell.process_count != 1)
+		exit(errno);
 	return (0);
 }

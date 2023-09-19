@@ -1,37 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   add_environment.c                                  :+:      :+:    :+:   */
+/*   add.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:33:23 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/18 14:15:23 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/19 16:04:58 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
-
-int	count_value(char **str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
+#include "minishell.h"
 
 void	append_env(char **env)
 {
 	int		i;
 
 	i = 0;
-	g_mshell.envp = ft_calloc(sizeof(char **), 29);
 	while (env[i])
 	{
 		env_add_back(&g_mshell.env, new_env(ft_strdup(env[i])));
-		g_mshell.envp[i] = ft_strdup(env[i]);
 		i++;
 	}
 }
@@ -49,10 +37,64 @@ void	append_export(void)
 	}
 }
 
+int	ft_strcmp_a(const char *s1, const char *s2)
+{
+	int	i;
+	
+	if (!s1 || !s2)
+		return (FALSE);
+	i = 0;
+	while (i < 5)
+	{
+		if (s1[i] != s2[i])
+			return (FALSE);
+		i++;
+	}
+	return (TRUE);
+}
+
 void	append_paths(void)
 {
 	char	*path;
+	t_env	*env;
 
-	path = (g_mshell.env->next->next->str) + 5;
+	env = g_mshell.env;
+	path = NULL;
+	while (env)
+	{
+		if (ft_strcmp_a(env->str, "PATH="))
+		{
+			path = env->str;
+			break;
+		}
+		env = env->next;
+	}
 	g_mshell.paths = ft_split(path, ':');
+}
+
+char **append_envo()
+{
+    char **envo;
+    t_env *temp;
+    t_env *temp1;
+    int i;
+    int len;
+    
+    temp = g_mshell.env;
+    temp1 = g_mshell.env;
+    i = 0;
+    len = 0;
+    while(temp1)
+    {
+        len++;
+        temp1 = temp1->next;
+    }
+    envo = malloc(sizeof(char **) * len);
+    while(i<len)
+    {
+        envo[i] = temp->str;
+        i++;
+        temp = temp->next;
+    }
+    return (envo);
 }

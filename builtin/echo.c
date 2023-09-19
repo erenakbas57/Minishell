@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 18:12:44 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/18 17:49:15 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/19 16:42:25 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,9 @@ int     b_echo(char **input)
 	}
 	if (flag)
 		write(STDOUT_FILENO, "\n", 1);
+	if (g_mshell.process_count == 1)
+		errno = 0;
+	if (!(is_parent()) || g_mshell.process_count != 1)
+		exit(EXIT_SUCCESS);
 	return (0);
 }

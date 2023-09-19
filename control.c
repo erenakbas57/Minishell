@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 18:13:55 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/07 17:42:08 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/19 14:40:20 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,14 @@ int	is_whitespace(char c)
 		return (1);
 	else
 		return (0);
+}
+
+int	count_value(char **str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }

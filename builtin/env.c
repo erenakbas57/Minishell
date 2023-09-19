@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:06:24 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/18 11:49:12 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/19 16:42:52 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,7 @@ int	b_env(void)
 		printf("usage: ");
 		printf("pwd [-L | -P]: \n");
 	}
+	if (!is_parent())
+		exit (EXIT_SUCCESS);
 	return (0);
 }
