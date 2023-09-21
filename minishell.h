@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 18:00:30 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/21 15:03:31 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/21 16:47:57 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,7 +214,7 @@ char		*take_text(char *str, int *i);
 char		*dollar_control(char *token);
 int			quote_control(char *quote);
 char		*env_add(char *env);
-int			env_control(char *token, char **str, int *i);
+void		env_control(char *token, char **str, int *i);
 
 //builtin.c
 int			is_builtin(char *input);
