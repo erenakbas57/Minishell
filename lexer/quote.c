@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:05:28 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/18 17:54:54 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/21 14:09:16 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	add_text(char **array, char *new)
 	}
 	*array = ft_strjoin(*array, new); 
 	free(new);
+	free(*array);
 }
 
 char	*clear_quote(char *token)
@@ -59,7 +60,7 @@ char	*clear_quote(char *token)
 
 	i = 0;
 	array = NULL;
-	token = dollar_control(token);
+	token = dollar_control(token); // dolar ve yazı olunca leaks var
 	while (token[i])
 	{
 		if (token[i] == DOUBLE_QUOTE)

@@ -6,12 +6,21 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 16:00:18 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/18 14:08:10 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/21 15:13:56 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+
+void	sig_quit_handler(int signum)
+{
+	(void)signum;
+	
+	signal(SIGQUIT, SIG_IGN);
+	write(1, "\e[8me\e", 6);
+	rl_redisplay();
+}
 void	ctrl_c(int sig)
 {
 	(void)sig;
@@ -26,7 +35,7 @@ void	ctrl_d(char *input)
 	{
 		printf("\n");
 		printf("\033[A");
-		printf(YELLOW_BOLD"Minishell>> : "RESET);
+		printf("Minishell>> : ");
 		printf("exit\n");
 		exit(errno);
 	}

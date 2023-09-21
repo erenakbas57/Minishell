@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 14:12:18 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/18 16:06:32 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/21 14:01:24 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	start_heredoc(int *heredoc_fd, char *end_str)
 		if (!input || ft_strcmp(input, end_str) || g_mshell.ignore)
 		{
 			free(input);
-			close_all_fd();
+			
 			break ;
 		}
 		write(heredoc_fd[1], input, ft_strlen(input));

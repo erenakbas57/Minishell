@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 18:00:30 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/19 16:41:05 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/21 15:03:31 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,8 @@ int			is_number(char *nbr);
 //signals.c
 void		ctrl_c(int sig);
 void		ctrl_d(char *input);
+void		sig_quit_handler(int signum);
+
 
 //free.c
 

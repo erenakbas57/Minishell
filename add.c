@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:33:23 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/19 16:04:58 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/21 14:39:17 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,15 @@ char **append_envo()
         len++;
         temp1 = temp1->next;
     }
-    envo = malloc(sizeof(char **) * len);
+    envo = malloc(sizeof(char **) * len + 1);
+	if (!envo)
+        return NULL;
     while(i<len)
     {
         envo[i] = temp->str;
         i++;
         temp = temp->next;
     }
+	envo[i] = NULL;
     return (envo);
 }
