@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 18:00:30 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/21 16:47:57 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/23 15:11:14 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 # define CYAN_BOLD 		"\033[1;36m"
 # define WHITE_BOLD 	"\033[1;37m"
 
+# define DOLLAR_CTRL	">£#$½§{[|]}*-~,;.:!'^+&/{}\"\'%% "
 # define TRUE			1
 # define FALSE			0
 # define DOLLAR			'$'
@@ -121,7 +122,6 @@ void		append_export(void);
 void		append_paths(void);
 char		**append_envo();
 
-
 //lst_env.c
 t_env		*new_env(char *str);
 void		env_add_back(t_env **env, t_env *new);
@@ -166,7 +166,6 @@ void		ctrl_c(int sig);
 void		ctrl_d(char *input);
 void		sig_quit_handler(int signum);
 
-
 //free.c
 
 void		free_process(void);
@@ -179,10 +178,6 @@ void		command_error(char *str);
 void		directory_error(char *str);
 void		nofile_error(char *str);
 int			is_parent(void);
-
-
-
-
 
 //tokenize.c
 void		tokenize(char *input);
@@ -213,8 +208,11 @@ char		*take_text(char *str, int *i);
 //dollar.c
 char		*dollar_control(char *token);
 int			quote_control(char *quote);
-char		*env_add(char *env);
-void		env_control(char *token, char **str, int *i);
+char 		*env_add(char *env);
+void		env_control(char *token, char **str, int *token_i, int *str_i);
+
+int			env_len(char *env);
+int			token_len(char *token);
 
 //builtin.c
 int			is_builtin(char *input);
@@ -245,32 +243,27 @@ void		env_lst_delone(char *str);
 void		run_cmd(t_process *process);
 void 		get_builtin(t_process *process);
 
-
 int			b_echo(char **input);
-int	echo_parameter(char **prm);
-void	put_char(char *input);
-
+int			echo_parameter(char **prm);
+void		put_char(char *input);
 
 //hreredoc.c
-void	is_heredoc(void);
-void	start_heredoc(int *heredoc_fd, char *end_str);
-void	close_heredoc(int sig);
-
+void		is_heredoc(void);
+void		start_heredoc(int *heredoc_fd, char *end_str);
+void		close_heredoc(int sig);
 
 //fd.c
-int	contain_heredoc(t_process *process);
-void	close_heredoc_fd(t_process *process);
-void	close_all_fd(void);
+int			contain_heredoc(t_process *process);
+void		close_heredoc_fd(t_process *process);
+void		close_all_fd(void);
 
 //redirect.c
-void 	get_inputs(t_process *process);
-void	set_outputs(t_process *process);
-
-
+void 		get_inputs(t_process *process);
+void		set_outputs(t_process *process);
 
 //path.c
-char	*get_path(char *cmd);
-void	check_dir(char *cmd);
+char		*get_path(char *cmd);
+void		check_dir(char *cmd);
 
 
 #endif
