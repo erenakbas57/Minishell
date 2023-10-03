@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 18:00:30 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/23 15:11:14 by makbas           ###   ########.fr       */
+/*   Updated: 2023/10/03 18:59:34 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,16 +111,16 @@ t_minishell	g_mshell;
 
 //main.c
 void		init_env(char **env);
-void	wait_cmd(void);
-void	start_cmd(void);
-void	launch_ms(char *input);
+void		wait_cmd(void);
+void		start_cmd(void);
+void		launch_ms(char *input);
 
 // add_environment.c
 void		append_env(char **env);
 int			count_value(char **str);
 void		append_export(void);
 void		append_paths(void);
-char		**append_envo();
+char		**append_envo(void);
 
 //lst_env.c
 t_env		*new_env(char *str);
@@ -134,6 +134,7 @@ t_export	*find_export(t_export *export, char *find);
 
 //libft
 int			ft_atoi(const char *str);
+char		*ft_itoa(int n);
 void		*ft_memset(void *b, int c, size_t len);
 void		*ft_calloc(size_t count, size_t size);
 void		ft_bzero(void *s, size_t n);
@@ -142,6 +143,7 @@ char		*ft_substr(char const *s, unsigned int start, size_t len);
 char		**ft_split(char const *s, char c);
 char		*ft_strchr(const char *s, int c);
 char		*ft_strlcpy(char *dst, const char *src, int dstsize);
+char		*ft_strcpy(char *dest, char *src);
 
 char		*ft_strdup_two(const char *str, int size, int choose);
 char		*ft_strdup(const char *str);
@@ -176,7 +178,7 @@ void		free_token(void);
 void		token_error(int type);
 void		command_error(char *str);
 void		directory_error(char *str);
-void		nofile_error(char *str);
+void		nofile_error(char *str, char *exe);
 int			is_parent(void);
 
 //tokenize.c
@@ -189,7 +191,6 @@ void		end_token(char **str, char type);
 int			token_add_back(t_token **token, t_token *new, int plus);
 t_token		*new_token(char *str, enum e_token_type type);
 
-
 //process_lst.c
 t_process	*new_process(void);
 void		process_add_back(t_process **process, t_process *new);
@@ -197,7 +198,7 @@ void		process_add_back(t_process **process, t_process *new);
 //lexerize.c
 int			append_process(t_token **token, t_process *process);
 char		**add_array(char **exe_red, char *token);
-int			lexerize(void);
+int			lexerize(t_token *token, t_process *process);
 
 //quote.c
 char		*clear_quote(char *token);
@@ -208,7 +209,7 @@ char		*take_text(char *str, int *i);
 //dollar.c
 char		*dollar_control(char *token);
 int			quote_control(char *quote);
-char 		*env_add(char *env);
+char		*env_add(char *env);
 void		env_control(char *token, char **str, int *token_i, int *str_i);
 
 int			env_len(char *env);
@@ -241,7 +242,7 @@ void		env_lst_delone(char *str);
 
 //cmd.c
 void		run_cmd(t_process *process);
-void 		get_builtin(t_process *process);
+void		get_builtin(t_process *process);
 
 int			b_echo(char **input);
 int			echo_parameter(char **prm);
@@ -258,12 +259,11 @@ void		close_heredoc_fd(t_process *process);
 void		close_all_fd(void);
 
 //redirect.c
-void 		get_inputs(t_process *process);
+void		get_inputs(t_process *process);
 void		set_outputs(t_process *process);
 
 //path.c
 char		*get_path(char *cmd);
 void		check_dir(char *cmd);
-
 
 #endif

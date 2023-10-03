@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
+/*   By: rdemiray <rdemiray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:05:28 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/21 16:57:09 by makbas           ###   ########.fr       */
+/*   Updated: 2023/10/02 12:18:45 by rdemiray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,18 @@ char	*take_text(char *str, int *i)
 
 void	add_text(char **array, char *new)
 {
+	char	*arr_tmp;
+
+	arr_tmp = *array;
 	if (!(*array))
 	{
 		*array = ft_strdup(new);
 		free(new);
 		return ;
 	}
-	*array = ft_strjoin(*array, new); 
+	*array = ft_strjoin(*array, new);
 	free(new);
-	free(*array);
+	free(arr_tmp);
 }
 
 char	*clear_quote(char *token)
@@ -60,15 +63,21 @@ char	*clear_quote(char *token)
 
 	i = 0;
 	array = NULL;
-	token = dollar_control(token); // dolar ve yazı olunca leaks var
+	token = dollar_control(token);
 	while (token[i])
 	{
 		if (token[i] == DOUBLE_QUOTE)
+		{
 			new = take_sub_text(token, &i, DOUBLE_QUOTE);
+		}
 		else if (token[i] == SINGLE_QUOTE)
+		{
 			new = take_sub_text(token, &i, SINGLE_QUOTE);
+		}
 		else
+		{
 			new = take_text(token, &i);
+		}
 		add_text(&array, new);
 	}
 	free(token);

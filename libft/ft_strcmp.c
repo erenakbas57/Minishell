@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
+/*   By: rdemiray <rdemiray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 23:12:11 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/11 19:10:39 by makbas           ###   ########.fr       */
+/*   Updated: 2023/10/02 12:14:53 by rdemiray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	ft_strcmp(const char *s1, const char *s2)
 	}
 	return (TRUE);
 }
-
 
 int	ft_strcmp_ex(const char *s1, const char *s2)
 {

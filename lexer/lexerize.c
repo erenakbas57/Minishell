@@ -6,35 +6,35 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 00:00:18 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/21 15:57:26 by makbas           ###   ########.fr       */
+/*   Updated: 2023/10/03 19:32:19 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int count_quoets(char *str)
+int	count_quoets(char *str)
 {
-	int i;
-	int count;
-	int count2;
-	
+	int	i;
+	int	count;
+	int	count2;
+
 	i = 0;
 	count = 0;
 	count2 = 0;
-	while((str[i]))
+	while ((str[i]))
 	{
-		if(str[i] == '\"')
+		if (str[i] == '\"')
 			count++;
-		if(str[i] == '\'')
+		if (str[i] == '\'')
 			count2++;
 		i++;
 	}
-	if((count % 2 == 1) || (count2 % 2 == 1))
+	if ((count % 2 == 1) || (count2 % 2 == 1))
 	{
 		printf("count of quotes is odd\n");
-		return(0);
+		return (0);
 	}
-	return(1);
+	return (1);
 }
 
 char	**add_array(char **exe_red, char *token)
@@ -88,30 +88,33 @@ int	append_process(t_token **token, t_process *process)
 	return (TRUE);
 }
 
-int	lexerize(void)
+int	error_pipe(void)
 {
-	t_token		*token;
-	t_process	*process;
+	printf("minishell: syntax error near unexpected token '|'\n");
+	free_token();
+	free_process();
+	errno = 258;
+	return (FALSE);
+}
 
+int	lexerize(t_token *token, t_process *process)
+{
 	token = g_mshell.token;
 	while (token)
 	{
-		if(!count_quoets(token->str))
+		if (token->str[0] == '#' || !count_quoets(token->str))
 		{
 			free_token();
-			return(FALSE);
+			return (FALSE);
 		}
 		if (token->prev == NULL || token->type == PIPE)
 		{
-			if (token->prev == NULL && token->type == PIPE)
-			{
-				token_error(token->type);
-				free_token();
-				free_process();
-				return (FALSE);				
-			}
 			if (token->type == PIPE)
+			{
 				token = token->next;
+				if (!token || token->type == PIPE)
+					return (error_pipe());
+			}
 			process = new_process();
 			process_add_back(&g_mshell.process, process);
 			g_mshell.process_count++;

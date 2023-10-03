@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
+/*   By: rdemiray <rdemiray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 12:05:31 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/19 16:40:43 by makbas           ###   ########.fr       */
+/*   Updated: 2023/10/02 13:13:26 by rdemiray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,16 @@ void	directory_error(char *str)
 		exit(errno);
 }
 
-void	nofile_error(char *str)
+void	nofile_error(char *str, char *exe)
 {
 	if (ft_strchr(str, '/'))
 		errno = 127;
 	else
 		errno = 1;
-	write(2, "minishell: ", 11);
+	write(2, exe, ft_strlen(exe));
+	write(2, ": ", 2);
 	write(2, str, ft_strlen(str));
 	write(2, ": No such file or directory\n", 28);
-	exit(errno);
 	if (!is_parent())
 		exit(errno);
 }

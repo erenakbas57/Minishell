@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 15:33:07 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/19 16:48:17 by makbas           ###   ########.fr       */
+/*   Updated: 2023/10/03 18:10:33 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,29 +21,21 @@ int	b_exit(void)
 	count = 0;
 	while (exe[count])
 		count++;
-	if ((count == 1) || (count == 2 && !(is_number(exe[1]))))
+	if (count == 1 || (count == 2 && (ft_atoi(exe[1]))))
 	{
-		printf("exit\n");
+		write(1, "exit\n", 5);
 		exit(errno);
 	}
-	else if ((count == 2) && !(is_number(exe[1])))
-	{
-		printf("değer: %s\n", exe[1]);
-		printf("exit\n");
-		printf("Minishell: ");
-		printf("exit: ");
-		printf("%s: ", exe[1]);
-		printf("numeric argument required\n");
-		exit(0);
-	}
-	else if (count > 2)
+	else if (count > 2 && (ft_atoi(exe[1])))
 	{
 		errno = 1;
-		printf("exit\n");
-		printf("Minishell: ");
-		printf("exit: ");
-		printf("too many arguments\n");
-		exit(0);
+		write(1, "exit\nMinishell: exit: too many arguments\n", 41);
+	}
+	else if (!(is_number(exe[1])))
+	{
+		printf("exit\nMinishell: exit: %s: numeric argument required\n" \
+			, exe[1]);
+		exit(-1 % 256);
 	}
 	return (0);
 }

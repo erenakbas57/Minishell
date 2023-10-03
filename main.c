@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 18:00:32 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/21 15:03:03 by makbas           ###   ########.fr       */
+/*   Updated: 2023/10/03 19:00:21 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,19 @@ void	wait_cmd(void)
 void	init_env(char **env)
 {
 	pid_t	child_pid;
+	char	**op;
 
 	errno = 0;
 	g_mshell.paths = NULL;
 	append_env(env);
+	op = malloc(3 * sizeof(char *));
+	op[0] = malloc(strlen("unset ") + 1);
+	op[1] = malloc(strlen("OLDPWD") + 1);
+	strcpy(op[0], "export ");
+	strcpy(op[1], "OLDPWD");
+	op[2] = NULL;
+	b_unset(op);
+	free_array(op);
 	append_export();
 	append_paths();
 	child_pid = fork();
@@ -73,11 +82,16 @@ void	start_cmd(void)
 
 void	launch_ms(char *input)
 {
+	t_token		*token;
+	t_process	*process;
+
+	token = NULL;
+	process = NULL;
 	g_mshell.process_count = 0;
 	g_mshell.token = NULL;
 	g_mshell.process = NULL;
 	tokenize(input);
-	if (!lexerize())
+	if (!lexerize(token, process))
 		return ;
 	start_cmd();
 	free_process();
@@ -94,7 +108,6 @@ int	main(int ac, char **av, char **env)
 		g_mshell.ignore = FALSE;
 		signal(SIGINT, ctrl_c);
 		signal(SIGQUIT, sig_quit_handler);
-
 		input = readline("MINISHELL>> : ");
 		ctrl_d(input);
 		if (g_mshell.ignore)

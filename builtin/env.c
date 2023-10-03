@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
+/*   By: rdemiray <rdemiray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:06:24 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/19 16:42:52 by makbas           ###   ########.fr       */
+/*   Updated: 2023/10/02 13:44:02 by rdemiray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,35 +33,41 @@ void	env_write(char *str)
 		}
 		env = env->next;
 	}
-	printf("ENV: ");
-	printf("%s: ", g_mshell.process->execute[1]);
-	printf("No such file or directory\n");
+	nofile_error(g_mshell.process->execute[1], "env");
+}
+
+void	empty_env1(t_env *env)
+{
+	env = g_mshell.env;
+	while (env)
+	{
+		printf("%s\n", env->str);
+		env = env->next;
+	}
 }
 
 int	b_env(void)
 {
 	t_env	*env;
 	char	**exe;
+	char	*path;
+	char	**envo;
 
 	env = g_mshell.env;
 	exe = g_mshell.process->execute;
-	if (exe[1] == NULL)
-	{
-		while (env)
-		{
-			printf("%s\n", env->str);
-			env = env->next;
-		}
-	}
-	else if (exe[1] != NULL && exe[2] == NULL)
-	{
+	if (!exe[1])
+		empty_env1(env);
+	else if (exe[1] && exe[1][0] == '$' && !exe[2])
 		env_write(exe[1]);
-	}
-	else
+	else if (exe[1] && !exe[2] && access(exe[1], F_OK) == 0)
 	{
-		printf("usage: ");
-		printf("pwd [-L | -P]: \n");
+		envo = append_envo();
+		path = get_path("sh");
+		execve(path, g_mshell.process->execute, envo);
+		free_array(envo);
 	}
+	else if ((exe[1] && !exe[2] && access(exe[1], F_OK) == -1))
+		nofile_error(exe[1], exe[0]);
 	if (!is_parent())
 		exit (EXIT_SUCCESS);
 	return (0);

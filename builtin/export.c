@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
+/*   By: rdemiray <rdemiray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 18:20:09 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/18 14:33:34 by makbas           ###   ########.fr       */
+/*   Updated: 2023/09/23 15:50:00 by rdemiray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,6 @@ int	b_export(char **exe)
 		}
 	}
 	if (error > 0)
-		printf("hata\n");
+		printf("minishell: export: `%s': not a valid identifier\n", cpy_exe[1]);
 	return (0);
 }

@@ -3,24 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
+/*   By: rdemiray <rdemiray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 16:00:18 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/21 15:13:56 by makbas           ###   ########.fr       */
+/*   Updated: 2023/10/02 11:58:37 by rdemiray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
 void	sig_quit_handler(int signum)
 {
 	(void)signum;
-	
 	signal(SIGQUIT, SIG_IGN);
 	write(1, "\e[8me\e", 6);
 	rl_redisplay();
 }
+
 void	ctrl_c(int sig)
 {
 	(void)sig;

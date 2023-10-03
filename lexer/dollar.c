@@ -5,18 +5,20 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/20 15:14:22 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/23 15:41:15 by makbas           ###   ########.fr       */
+/*   Created: 2023/09/24 14:19:45 by rdemiray          #+#    #+#             */
+/*   Updated: 2023/10/03 18:22:38 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char *env_add(char *env)
+char	*env_add(char *env)
 {
 	char	*path;
 	t_env	*environment;
+	char	*tmp;
 
+	tmp = NULL;
 	environment = g_mshell.env;
 	env = ft_strjoin(env, "=");
 	while (environment)
@@ -32,19 +34,24 @@ char *env_add(char *env)
 		}
 		environment = environment->next;
 	}
+	if (env[0] == '?')
+		tmp = ft_itoa(errno);
+	else if (ft_strncmp(env, "0", 1) == 0)
+		tmp = ft_strdup("bash");
+	else
+		tmp = ft_strdup("$");
 	free(env);
-	return (ft_strdup("$"));
+	return (tmp);
 }
 
-
-void env_control(char *token, char **str, int *token_i, int *str_i)
+void	env_control(char *token, char **str, int *token_i, int *str_i)
 {
 	char	*env;
 	int		start;
 	int		len;
 	char	*tmp;
 	int		i;
-	
+
 	start = *token_i;
 	len = 0;
 	while (!(ft_strchr(DOLLAR_CTRL, token[*token_i])))
@@ -69,15 +76,20 @@ void env_control(char *token, char **str, int *token_i, int *str_i)
 			(*str_i)++;
 			i++;
 		}
+		if (tmp[0] == '0' || tmp[0] == 'b' || tmp[0] == '$')
+			free(tmp);
+		else if (tmp[0] >= '1' && tmp[0] <= '9')
+			free(tmp);
 	}
 }
 
-int quote_control(char *quote)
+int	quote_control(char *quote)
 {
-	int count;
-	int i;
-	int start;
-	int finish;
+	int	count;
+	int	i;
+	int	start;
+	int	finish;
+
 	start = 0;
 	finish = 0;
 	i = -1;
@@ -101,11 +113,11 @@ int quote_control(char *quote)
 	return (1);
 }
 
-char    *dollar_control(char *token)
+char	*dollar_control(char *token)
 {
-	int     token_i;
-	int     str_i;
-	char    *str;
+	int		token_i;
+	int		str_i;
+	char	*str;
 	int		i;
 
 	str_i = 0;
@@ -113,7 +125,7 @@ char    *dollar_control(char *token)
 	if (ft_strchr(token, DOLLAR) && quote_control(token))
 	{
 		i = token_len(token);
-		str = ft_calloc(sizeof(char),  (i + 1));
+		str = ft_calloc(sizeof(char), (i + 1));
 		while (token[token_i])
 		{
 			if (token[token_i] == DOLLAR)
@@ -127,11 +139,9 @@ char    *dollar_control(char *token)
 				str_i++;
 				token_i++;
 			}
-			
 		}
 		return (str);
 	}
 	token = ft_strdup(token);
 	return (token);
-	
 }

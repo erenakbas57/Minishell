@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:33:23 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/21 14:39:17 by makbas           ###   ########.fr       */
+/*   Updated: 2023/10/03 16:44:44 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	append_export(void)
 int	ft_strcmp_a(const char *s1, const char *s2)
 {
 	int	i;
-	
+
 	if (!s1 || !s2)
 		return (FALSE);
 	i = 0;
@@ -65,39 +65,38 @@ void	append_paths(void)
 		if (ft_strcmp_a(env->str, "PATH="))
 		{
 			path = env->str;
-			break;
+			break ;
 		}
 		env = env->next;
 	}
 	g_mshell.paths = ft_split(path, ':');
 }
 
-char **append_envo()
+char	**append_envo(void)
 {
-    char **envo;
-    t_env *temp;
-    t_env *temp1;
-    int i;
-    int len;
-    
-    temp = g_mshell.env;
-    temp1 = g_mshell.env;
-    i = 0;
-    len = 0;
-    while(temp1)
-    {
-        len++;
-        temp1 = temp1->next;
-    }
-    envo = malloc(sizeof(char **) * len + 1);
+	char	**envo;
+	t_env	*temp;
+	t_env	*temp1;
+	int		i;
+	int		len;
+
+	temp = g_mshell.env;
+	temp1 = g_mshell.env;
+	i = -1;
+	len = 0;
+	while (temp1)
+	{
+		len++;
+		temp1 = temp1->next;
+	}
+	envo = malloc(sizeof(char **) * len + 1);
 	if (!envo)
-        return NULL;
-    while(i<len)
-    {
-        envo[i] = temp->str;
-        i++;
-        temp = temp->next;
-    }
+		return (NULL);
+	while (++i < len)
+	{
+		envo[i] = temp->str;
+		temp = temp->next;
+	}
 	envo[i] = NULL;
-    return (envo);
+	return (envo);
 }

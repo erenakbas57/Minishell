@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 18:08:12 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/18 14:20:45 by makbas           ###   ########.fr       */
+/*   Updated: 2023/10/03 19:30:10 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	end_token_two(char *str)
 {
 	int	i;
 
-	i = 1;
+	i = 0;
 	while (str[i])
 	{
 		if (is_whitespace(str[i]) || is_redirects(str))
@@ -66,8 +66,6 @@ void	parse_string(char **str)
 		token = ft_substr(new, 0, len);
 		token_add_back(&g_mshell.token, new_token(token, STRING), 0);
 	}
-	while (**str && is_whitespace((**str)))
-		(*str)++;
 }
 
 void	tokenize(char *input)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
+/*   By: rdemiray <rdemiray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 17:39:00 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/18 14:40:53 by makbas           ###   ########.fr       */
+/*   Updated: 2023/10/02 12:23:45 by rdemiray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	env_lst_delone(char *str)
 	char	*env_str;
 
 	env_node = g_mshell.env;
-
 	if (!env_node)
 		return ;
 	while (env_node->next)
@@ -44,7 +43,6 @@ void	export_lst_delone(char *str)
 	char		*node_str;
 
 	export_node = g_mshell.export;
-
 	if (!export_node)
 		return ;
 	while (export_node->next)
@@ -61,7 +59,6 @@ void	export_lst_delone(char *str)
 		export_node = export_node->next;
 	}
 }
-
 
 int	unset_control(char *str)
 {
@@ -91,11 +88,29 @@ int	unset_control(char *str)
 	return (value);
 }
 
+void	b_unset2(char *exe)
+{
+	int	choose;
+	int	error;
+
+	error = 0;
+	choose = unset_control(exe);
+	if (choose == VARIABLE)
+	{
+		export_lst_delone(exe);
+		env_lst_delone(exe);
+	}
+	else
+	{
+		error++;
+		if (error > 0)
+			printf("bash: unset: `%s': not a valid identifier\n", exe);
+	}
+}
 
 int	b_unset(char **exe)
 {
 	int	i;
-	int	choose;
 	int	error;
 
 	error = 0;
@@ -104,18 +119,9 @@ int	b_unset(char **exe)
 		i = 1;
 		while (exe[i])
 		{
-			choose = unset_control(exe[i]);
-			if (choose == VARIABLE)
-			{
-				export_lst_delone(exe[i]);
-				env_lst_delone(exe[i]);
-			}
-			else
-				error++;
+			b_unset2(exe[i]);
 			i++;
 		}
 	}
-	if (error > 0)
-		printf("error\n");
 	return (0);
 }

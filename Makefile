@@ -32,7 +32,7 @@ LIBFT 	= libft/ft_bzero.c libft/ft_memset.c libft/ft_calloc.c \
 		  libft/ft_substr.c libft/ft_strdup.c libft/ft_strlen.c \
 		  libft/ft_strjoin.c libft/ft_strncmp.c libft/ft_split.c \
 		  libft/ft_strchr.c  libft/ft_strlcpy.c libft/ft_strcmp.c \
-		  libft/ft_atoi.c libft/ft_itoa.c
+		  libft/ft_atoi.c libft/ft_itoa.c libft/ft_strcpy.c
 
 TOKEN	= token/tokenize.c 
 LEXER	= lexer/lexerize.c lexer/quote.c lexer/dollar.c lexer/dollar_two.c
@@ -61,7 +61,7 @@ OBJ			=	$(SRCS:%.c=%.o)  	\
 CC			=	@gcc
 CFLAGS		=	-Wall -Wextra -Werror
 READLINE	=	-lreadline
-RM			=	@rm -rf
+RM			=	rm -rf
 
 
 all: $(NAME)

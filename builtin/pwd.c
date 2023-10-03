@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 22:55:40 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/19 16:43:19 by makbas           ###   ########.fr       */
+/*   Updated: 2023/10/03 17:55:22 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ int	b_pwd(void)
 
 	path = getcwd(NULL, 0);
 	if (path == NULL)
-		perror("PWD");
-	else if (g_mshell.process->execute[1])
-		perror("PWD");
+		perror("minishell: ");
 	else
 		printf("%s\n", path);
 	free(path);

@@ -1,42 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rdemiray <rdemiray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/11 16:09:19 by makbas            #+#    #+#             */
-/*   Updated: 2023/10/02 12:05:26 by rdemiray         ###   ########.fr       */
+/*   Created: 2023/10/02 13:28:40 by rdemiray          #+#    #+#             */
+/*   Updated: 2023/10/02 13:29:02 by rdemiray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_atoi(const char *str)
+char	*ft_strcpy(char *dest, char *src)
 {
-	int		i;
-	long	num;
-	int		sign;
+	int	i;
 
 	i = 0;
-	num = 0;
-	sign = 1;
-	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
-		i++;
-	if (str[i] == '-' || str[i] == '+')
+	while (src[i] != '\0')
 	{
-		if (str[i] == '-')
-			sign *= -1;
+		dest[i] = src[i];
 		i++;
 	}
-	while (str[i] && (str[i] >= '0' && str[i] <= '9'))
-	{
-		num = (num * 10) + (str[i] - 48) * sign;
-		if (num > 2147483647)
-			return (-1);
-		if (num < -2147483648)
-			return (0);
-		i++;
-	}
-	return (num);
+	dest[i] = '\0';
+	return (dest);
 }

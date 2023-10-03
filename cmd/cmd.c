@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 12:18:00 by makbas            #+#    #+#             */
-/*   Updated: 2023/09/21 14:26:08 by makbas           ###   ########.fr       */
+/*   Updated: 2023/10/03 18:51:07 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ void	pipe_route(t_process *process)
 
 void	heredoc_route(t_process *process)
 {
-	dup2(process->heredoc_fd[0], 0); // 0'dan gelenleri heredoc_fd'de depolicak
+	dup2(process->heredoc_fd[0], 0);
 	if (process->next != NULL)
-		dup2(process->fd[1], 1); //1_den gelenleri fd'de depolicak
+		dup2(process->fd[1], 1);
 }
 
 void	cmd_route(t_process *process)
@@ -46,12 +46,11 @@ void	cmd_route(t_process *process)
 	close_all_fd();
 }
 
-
-void get_builtin(t_process *process)
+void	get_builtin(t_process *process)
 {
-	int input;
-	int output;
-	
+	int	input;
+	int	output;
+
 	input = dup(0);
 	output = dup(1);
 	get_inputs(process);
@@ -67,10 +66,8 @@ void	run_cmd(t_process *process)
 {
 	pid_t	pid;
 	char	*path;
-	int		count;
 	char	**env;
-	
-	count = 1;
+
 	pid = fork();
 	env = append_envo();
 	if (pid == CHILD_PROCESS)
@@ -80,7 +77,6 @@ void	run_cmd(t_process *process)
 		cmd_route(process);
 		run_builtin(process);
 		path = get_path(process->execute[0]);
-		//printf("path: %s\n",path);
 		execve(path, process->execute, env);
 		command_error(process->execute[0]);
 		exit(errno);
@@ -88,8 +84,7 @@ void	run_cmd(t_process *process)
 	else
 	{
 		process->pid = pid;
-		if (count == 1)
-			g_mshell.parent_pid = pid - 1;
+		g_mshell.parent_pid = pid - 1;
 	}
 	free(env);
 }
