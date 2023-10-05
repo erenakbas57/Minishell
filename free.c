@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdemiray <rdemiray@student.42.fr>          +#+  +:+       +#+        */
+/*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 17:25:54 by makbas            #+#    #+#             */
-/*   Updated: 2023/10/02 13:13:32 by rdemiray         ###   ########.fr       */
+/*   Updated: 2023/10/05 15:26:38 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,12 @@ void	free_array(char **arr)
 		i++;
 	}
 	free(arr);
+}
+
+void	free_double(void)
+{
+	free_token();
+	free_process();
 }
 
 void	free_token(void)

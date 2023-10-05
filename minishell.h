@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 18:00:30 by makbas            #+#    #+#             */
-/*   Updated: 2023/10/03 18:59:34 by makbas           ###   ########.fr       */
+/*   Updated: 2023/10/05 17:19:41 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@
 # define CYAN_BOLD 		"\033[1;36m"
 # define WHITE_BOLD 	"\033[1;37m"
 
-# define DOLLAR_CTRL	">£#$½§{[|]}*-~,;.:!'^+&/{}\"\'%% "
+# define DOLLAR_CTRL	">£#$½§{[|]}*-~,;.:!'^+&/{}\"\'%% \0"
+# define EX_CTRL		"0123456789!^+%%/=?*-.:,"
 # define TRUE			1
 # define FALSE			0
 # define DOLLAR			'$'
@@ -128,8 +129,8 @@ void		env_add_back(t_env **env, t_env *new);
 t_env		*find_env(t_env *env, char *find);
 
 //lst_export.c
-t_export	*new_export(char *str);
-void		export_add_back(t_export **export, t_export *new);
+t_export	*new_ex(char *str);
+void		ex_add_back(t_export **export, t_export *new);
 t_export	*find_export(t_export *export, char *find);
 
 //libft
@@ -167,9 +168,10 @@ int			is_number(char *nbr);
 void		ctrl_c(int sig);
 void		ctrl_d(char *input);
 void		sig_quit_handler(int signum);
+int			is_parent(void);
 
 //free.c
-
+void		free_double(void);
 void		free_process(void);
 void		free_array(char **arr);
 void		free_token(void);
@@ -179,7 +181,7 @@ void		token_error(int type);
 void		command_error(char *str);
 void		directory_error(char *str);
 void		nofile_error(char *str, char *exe);
-int			is_parent(void);
+int			error_pipe(void);
 
 //tokenize.c
 void		tokenize(char *input);
@@ -233,7 +235,8 @@ int			b_export(char **exe);
 void		show_export(void);
 void		new_value_export(char *new, int choose);
 int			export_control(char *str);
-void		update_export(char *upt, int choose);
+void		update_export_equal(char *upt);
+void		update_export_value(char *upt);
 
 //unset.c
 int			b_unset(char **exe);

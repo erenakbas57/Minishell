@@ -3,14 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdemiray <rdemiray@student.42.fr>          +#+  +:+       +#+        */
+/*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 16:00:18 by makbas            #+#    #+#             */
-/*   Updated: 2023/10/02 11:58:37 by rdemiray         ###   ########.fr       */
+/*   Updated: 2023/10/05 17:14:02 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	is_parent(void)
+{
+	return (g_mshell.parent_pid);
+}
 
 void	sig_quit_handler(int signum)
 {

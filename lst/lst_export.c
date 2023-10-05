@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   lst_export.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdemiray <rdemiray@student.42.fr>          +#+  +:+       +#+        */
+/*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 16:57:01 by makbas            #+#    #+#             */
-/*   Updated: 2023/10/02 12:05:10 by rdemiray         ###   ########.fr       */
+/*   Updated: 2023/10/05 15:33:36 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	export_add_back(t_export **export, t_export *new)
+void	ex_add_back(t_export **export, t_export *new)
 {
 	t_export	*tmp_export;
 
@@ -27,7 +27,7 @@ void	export_add_back(t_export **export, t_export *new)
 	}
 }
 
-t_export	*new_export(char *str)
+t_export	*new_ex(char *str)
 {
 	t_export	*export;
 

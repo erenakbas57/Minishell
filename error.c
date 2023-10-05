@@ -3,19 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdemiray <rdemiray@student.42.fr>          +#+  +:+       +#+        */
+/*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 12:05:31 by makbas            #+#    #+#             */
-/*   Updated: 2023/10/02 13:13:26 by rdemiray         ###   ########.fr       */
+/*   Updated: 2023/10/05 17:13:39 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	is_parent(void)
-{
-	return (g_mshell.parent_pid);
-}
 
 void	token_error(int type)
 {
@@ -57,6 +52,15 @@ void	directory_error(char *str)
 	write(2, ": is a directory\n", 17);
 	if (!is_parent())
 		exit(errno);
+}
+
+int	error_pipe(void)
+{
+	printf("minishell: syntax error near unexpected token '|'\n");
+	free_token();
+	free_process();
+	errno = 258;
+	return (FALSE);
 }
 
 void	nofile_error(char *str, char *exe)

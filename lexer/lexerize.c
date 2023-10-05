@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 00:00:18 by makbas            #+#    #+#             */
-/*   Updated: 2023/10/03 19:32:19 by makbas           ###   ########.fr       */
+/*   Updated: 2023/10/05 17:20:24 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,7 @@ int	append_process(t_token **token, t_process *process)
 				token_error(0);
 			else
 				token_error((*token)->type);
-			free_token();
-			free_process();
+			free_double();
 			return (FALSE);
 		}
 		data = clear_quote((*token)->str);
@@ -88,13 +87,31 @@ int	append_process(t_token **token, t_process *process)
 	return (TRUE);
 }
 
-int	error_pipe(void)
+int	process_token(t_token **token, t_process **process)
 {
-	printf("minishell: syntax error near unexpected token '|'\n");
-	free_token();
-	free_process();
-	errno = 258;
-	return (FALSE);
+	if ((*token)->str[0] == '#' || !count_quoets((*token)->str))
+	{
+		free_token();
+		return (FALSE);
+	}
+	if ((*token)->prev == NULL || (*token)->type == PIPE)
+	{
+		if ((*token)->type == PIPE)
+		{
+			*token = (*token)->next;
+			if (!*token || (*token)->type == PIPE)
+				return (error_pipe());
+		}
+		*process = new_process();
+		process_add_back(&g_mshell.process, *process);
+		g_mshell.process_count++;
+	}
+	if (!*token)
+		return (TRUE);
+	if (!append_process(token, *process))
+		return (FALSE);
+	*token = (*token)->next;
+	return (TRUE);
 }
 
 int	lexerize(t_token *token, t_process *process)
@@ -102,29 +119,8 @@ int	lexerize(t_token *token, t_process *process)
 	token = g_mshell.token;
 	while (token)
 	{
-		if (token->str[0] == '#' || !count_quoets(token->str))
-		{
-			free_token();
+		if (!process_token(&token, &process))
 			return (FALSE);
-		}
-		if (token->prev == NULL || token->type == PIPE)
-		{
-			if (token->type == PIPE)
-			{
-				token = token->next;
-				if (!token || token->type == PIPE)
-					return (error_pipe());
-			}
-			process = new_process();
-			process_add_back(&g_mshell.process, process);
-			g_mshell.process_count++;
-		}
-		if (!token)
-			break ;
-		if (!append_process(&token, process))
-			return (FALSE);
-		if (token)
-			token = token->next;
 	}
 	free_token();
 	return (TRUE);

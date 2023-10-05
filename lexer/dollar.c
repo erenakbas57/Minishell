@@ -6,11 +6,25 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 14:19:45 by rdemiray          #+#    #+#             */
-/*   Updated: 2023/10/03 18:22:38 by makbas           ###   ########.fr       */
+/*   Updated: 2023/10/05 16:45:17 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+char	*tmp_dup(char *env)
+{
+	char	*tmp;
+
+	tmp = NULL;
+	if (env[0] == '?')
+		tmp = ft_itoa(errno);
+	else if (ft_strncmp(env, "0", 1) == 0)
+		tmp = ft_strdup("bash");
+	else
+		tmp = ft_strdup("$");
+	return (tmp);
+}
 
 char	*env_add(char *env)
 {
@@ -34,12 +48,7 @@ char	*env_add(char *env)
 		}
 		environment = environment->next;
 	}
-	if (env[0] == '?')
-		tmp = ft_itoa(errno);
-	else if (ft_strncmp(env, "0", 1) == 0)
-		tmp = ft_strdup("bash");
-	else
-		tmp = ft_strdup("$");
+	tmp = tmp_dup(env);
 	free(env);
 	return (tmp);
 }
@@ -63,10 +72,7 @@ void	env_control(char *token, char **str, int *token_i, int *str_i)
 	tmp = env_add(env);
 	free(env);
 	if (tmp && tmp[0] == DOLLAR)
-	{
 		free(tmp);
-		return ;
-	}
 	else
 	{
 		i = 0;
@@ -76,9 +82,7 @@ void	env_control(char *token, char **str, int *token_i, int *str_i)
 			(*str_i)++;
 			i++;
 		}
-		if (tmp[0] == '0' || tmp[0] == 'b' || tmp[0] == '$')
-			free(tmp);
-		else if (tmp[0] >= '1' && tmp[0] <= '9')
+		if (ft_strchr("0b$", tmp[0]))
 			free(tmp);
 	}
 }
@@ -87,26 +91,25 @@ int	quote_control(char *quote)
 {
 	int	count;
 	int	i;
-	int	start;
-	int	finish;
+	int	s;
+	int	f;
 
-	start = 0;
-	finish = 0;
+	s = 0;
+	f = 0;
 	i = -1;
 	count = 0;
 	while (quote[i++] != DOLLAR)
 	{
 		if (quote[i] == SINGLE_QUOTE)
-			start++;
+			s++;
 	}
 	while (quote[i++])
 	{
 		if (quote[i] == SINGLE_QUOTE)
-			finish++;
+			f++;
 	}
-	count = start + finish;
-	if (((count % 2 == 0) && (start % 2 == 1)) || \
-		((finish == 1) && (start == 1)))
+	count = s + f;
+	if (((count % 2 == 0) && (s % 2 == 1)) || ((f == 1) && (s == 1)))
 		return (0);
 	if (count == 0)
 		return (1);

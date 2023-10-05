@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:33:23 by makbas            #+#    #+#             */
-/*   Updated: 2023/10/03 16:44:44 by makbas           ###   ########.fr       */
+/*   Updated: 2023/10/05 15:33:36 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	append_export(void)
 	env = g_mshell.env;
 	while (env)
 	{
-		export_add_back(&g_mshell.export, \
-			new_export(ft_strjoin_two(env->str)));
+		ex_add_back(&g_mshell.export, \
+			new_ex(ft_strjoin_two(env->str)));
 		env = env->next;
 	}
 }

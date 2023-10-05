@@ -37,7 +37,8 @@ LIBFT 	= libft/ft_bzero.c libft/ft_memset.c libft/ft_calloc.c \
 TOKEN	= token/tokenize.c 
 LEXER	= lexer/lexerize.c lexer/quote.c lexer/dollar.c lexer/dollar_two.c
 BUILT 	= builtin/pwd.c builtin/builtin.c builtin/cd.c builtin/exit.c \
-		  builtin/env.c builtin/echo.c builtin/unset.c builtin/export.c
+		  builtin/env.c builtin/echo.c builtin/unset.c builtin/export.c \
+		  builtin/export_two.c
 CMD		= cmd/cmd.c cmd/path.c
 RED		= redirect/heredoc.c redirect/fd.c redirect/redirect.c
 LIST	= lst/token_lst.c lst/lst_export.c lst/lst_env.c lst/process_lst.c
