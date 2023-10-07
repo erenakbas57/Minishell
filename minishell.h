@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 18:00:30 by makbas            #+#    #+#             */
-/*   Updated: 2023/10/05 17:19:41 by makbas           ###   ########.fr       */
+/*   Updated: 2023/10/07 16:53:45 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,6 +216,8 @@ void		env_control(char *token, char **str, int *token_i, int *str_i);
 
 int			env_len(char *env);
 int			token_len(char *token);
+int			get_env_length(const char *token, int *token_i);
+void		copy_characters(char **str, int *str_i, char *token, int *token_i);
 
 //builtin.c
 int			is_builtin(char *input);

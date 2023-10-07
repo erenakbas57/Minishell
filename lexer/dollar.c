@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 14:19:45 by rdemiray          #+#    #+#             */
-/*   Updated: 2023/10/05 16:45:17 by makbas           ###   ########.fr       */
+/*   Updated: 2023/10/07 16:53:31 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,7 @@ void	env_control(char *token, char **str, int *token_i, int *str_i)
 	int		i;
 
 	start = *token_i;
-	len = 0;
-	while (!(ft_strchr(DOLLAR_CTRL, token[*token_i])))
-	{
-		(*token_i)++;
-		len++;
-	}
+	len = get_env_length(token, token_i);
 	env = ft_substr(token, start, len);
 	tmp = env_add(env);
 	free(env);
@@ -137,14 +132,9 @@ char	*dollar_control(char *token)
 				env_control(token, &str, &token_i, &str_i);
 			}
 			else
-			{
-				str[str_i] = token[token_i];
-				str_i++;
-				token_i++;
-			}
+				copy_characters(&str, &str_i, token, &token_i);
 		}
 		return (str);
 	}
-	token = ft_strdup(token);
-	return (token);
+	return (ft_strdup(token));
 }
