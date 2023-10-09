@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 18:00:30 by makbas            #+#    #+#             */
-/*   Updated: 2023/10/07 16:53:45 by makbas           ###   ########.fr       */
+/*   Updated: 2023/10/09 16:34:54 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,6 @@
 # include <dirent.h>
 # include <signal.h>
 # include <sys/ioctl.h>
-
-# define RESET			"\033[0m"
-# define BLACK_BOLD 	"\033[1;30m"
-# define RED_BOLD 		"\033[1;31m"
-# define GREEN_BOLD 	"\033[1;32m"
-# define YELLOW_BOLD 	"\033[1;33m"
-# define BLUE_BOLD 		"\033[1;34m"
-# define MAGENTA_BOLD 	"\033[1;35m"
-# define CYAN_BOLD 		"\033[1;36m"
-# define WHITE_BOLD 	"\033[1;37m"
 
 # define DOLLAR_CTRL	">£#$½§{[|]}*-~,;.:!'^+&/{}\"\'%% \0"
 # define EX_CTRL		"0123456789!^+%%/=?*-.:,"
@@ -98,6 +88,7 @@ typedef struct s_token
 typedef struct s_minishell
 {
 	int			process_count;
+	int			quit;
 	int			parent_pid;
 	int			ignore;
 	char		**paths;

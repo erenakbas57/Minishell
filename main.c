@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 18:00:32 by makbas            #+#    #+#             */
-/*   Updated: 2023/10/03 19:00:21 by makbas           ###   ########.fr       */
+/*   Updated: 2023/10/09 16:33:32 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,10 +105,11 @@ int	main(int ac, char **av, char **env)
 	init_env(env);
 	while (ac && av)
 	{
+		g_mshell.quit = 0;
 		g_mshell.ignore = FALSE;
 		signal(SIGINT, ctrl_c);
 		signal(SIGQUIT, sig_quit_handler);
-		input = readline("MINISHELL>> : ");
+		input = readline("MinisHELL$ ");
 		ctrl_d(input);
 		if (g_mshell.ignore)
 		{

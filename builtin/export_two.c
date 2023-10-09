@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 15:28:48 by makbas            #+#    #+#             */
-/*   Updated: 2023/10/05 15:30:26 by makbas           ###   ########.fr       */
+/*   Updated: 2023/10/09 16:46:06 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,10 @@ void	update_export_equal(char *upt)
 	if (upt_env == NULL)
 		env_add_back(&g_mshell.env, new_env(ft_strdup(upt)));
 	else
+	{
+		free(upt_env->str);
 		upt_env->str = ft_strdup(upt);
+	}
 	upt_ex->str = ft_strdup_two(upt, 14, EQUAL);
 }
 

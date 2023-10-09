@@ -6,7 +6,7 @@
 /*   By: makbas <makbas@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 16:00:18 by makbas            #+#    #+#             */
-/*   Updated: 2023/10/05 17:14:02 by makbas           ###   ########.fr       */
+/*   Updated: 2023/10/09 16:31:56 by makbas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,18 @@ int	is_parent(void)
 void	sig_quit_handler(int signum)
 {
 	(void)signum;
-	signal(SIGQUIT, SIG_IGN);
-	write(1, "\e[8me\e", 6);
+	if (g_mshell.quit == 0)
+	{
+		write(1, "\033[2D", 4);
+		write(1, "$ ", 2);
+	}
+	else
+	{
+		write(1, "\033[2D", 4);
+		write(1, "  ", 2);
+		write(1, "\033[2D", 4);
+	}
+	g_mshell.quit++;
 	rl_redisplay();
 }
 
@@ -39,7 +49,7 @@ void	ctrl_d(char *input)
 	{
 		printf("\n");
 		printf("\033[A");
-		printf("Minishell>> : ");
+		printf("MinisHELL$ ");
 		printf("exit\n");
 		exit(errno);
 	}
